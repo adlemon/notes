@@ -53,7 +53,8 @@ def leave_one_out_products_before_and_after(lst):
     product_before[i] = product_before[i-1] * lst[i-1]
     product_after[-(i+1)] = product_after[-i] * lst[-i]
   # The ith element of the list of leave-one-out products is
-  #   product_before[i] * product_after[i].
+  #   lst[0] * ... * lst[i-1] * lst[i+1] * ... * lst[-1]
+  #     = product_before[i] * product_after[i].
   return [b * a for b, a in zip(product_before, product_after)]
 
 def main():
@@ -82,8 +83,14 @@ def main():
     print()
 
   print('Summary:')
-  for sol_name, correct_count in correct_counts.items():
-    print('{}: {} of {} correct'.format(sol_name, correct_count, len(tests)))
+  for sol in sols:
+    print(
+      '{}: {} of {} correct'.format(
+        sol.__name__
+        correct_counts[sol.__name__],
+        len(tests)
+      )
+    )
 
 if __name__ == '__main__':
   main()
