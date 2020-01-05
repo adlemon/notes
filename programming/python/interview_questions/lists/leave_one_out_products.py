@@ -70,14 +70,14 @@ def main():
     leave_one_out_products_before_and_after,
   )
 
-  correct_counts = {sol.__name__: 0 for sol in sols}
+  correct_counts = {sol: 0 for sol in sols}
   for test_index, (lst, want) in enumerate(tests):
     print('Test {}: lst = {}, want = {}'.format(test_index + 1, lst, want))
     for sol in sols:
       got = sol(lst)
       if got == want:
-        correct_counts[sol.__name__] += 1
         print('{} passes'.format(sol.__name__))
+        correct_counts[sol] += 1
       else:
         print('{} fails; got = {}'.format(sol.__name__, got))
     print()
@@ -86,8 +86,8 @@ def main():
   for sol in sols:
     print(
       '{}: {} of {} correct'.format(
-        sol.__name__
-        correct_counts[sol.__name__],
+        sol.__name__,
+        correct_counts[sol],
         len(tests)
       )
     )
