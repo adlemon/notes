@@ -1,0 +1,95 @@
+================================================================================
+2-0 Compile and run the program presented in this chapter.
+================================================================================
+See greet_padded.cpp.
+
+================================================================================
+2-1 Change the framing program so that it writes its greeting with no separation
+from the frame.
+================================================================================
+See greet_unpadded.cpp. Note that there are two approaches to this problem that
+trade off programmer effort and solution complexity. In the first approach, we
+simply change the pad variable in greet_padded.cpp to 0, minimizing programmer
+effort, while resulting in an unnecessarily complex solution (if all we want to
+do is print a greeting with no padding). In the second approach, we remove all
+references to pad, increasing programmer effort, while giving a simple solution
+to the problem of printing a framed greeting without padding. However, note that
+another drawback of the second approach is that the program cannot be easily
+modified to modify the padding. We elect to use the first approach because it
+minimizes programmer effort and is more extensible.
+
+================================================================================
+2-2 Change the framing program so that it uses a different amount of space to
+separate the sides from the greeting than it uses to separate the top and bottom
+borders from the greeting.
+================================================================================
+See greet_padded_2d.cpp.
+
+================================================================================
+2-3 Rewrite the framing program to ask the user to supply the amount of spacing
+to leave between the frame and the greeting.
+================================================================================
+See greet_padded_user_specified.cpp.
+
+================================================================================
+2-4 The framing program writes the mostly blank lines that separate the borders
+from the greeting one character at a time. Change the program so that it writes
+all the spaces needed in a single output expression.
+================================================================================
+See greet_padded_spaces_string.cpp.
+
+================================================================================
+2-5 Write a set of "*" characters so that they form a square, a rectangle, and
+a triangle.
+================================================================================
+See print_shapes.cpp.
+
+================================================================================
+2-6 What does the following code do?
+********************************************************************************
+int i = 0;
+while (i < 10) {
+  i += 1;
+  std::cout << i << std::endl;
+}
+********************************************************************************
+================================================================================
+This code prints a count from 1 to 10 to the console, with one number per line.
+
+================================================================================
+2-7 Write a program to count down from 10 to -5.
+================================================================================
+See count_10_to_minus5.cpp.
+
+================================================================================
+2-8 Write a program to generate the product of the numbers in the range [1, 10).
+================================================================================
+See product_1_9.cpp.
+
+================================================================================
+2-9 Write a program that asks the user to enter two numbers and tells the user
+which number is larger than the other.
+================================================================================
+See compute_maximum.cpp.
+
+================================================================================
+2-10 Explain each of the uses of std:: in the following program.
+********************************************************************************
+int main()
+{
+  int k = 0;
+  while (k != 10) {
+    using std::cout;
+    cout << "*";
+    k++;
+  }
+  std::cout << std::endl;
+  return 0;
+}
+********************************************************************************
+================================================================================
+The statement "using std::cout;" allows us to use the name cout instead of the
+qualified name std::cout in the current scope (which is the body of the while
+loop). The statement "std::cout << std::endl;" requires that we use the
+qualified name "std::cout" because we are outside of the scope containing the
+using statement.

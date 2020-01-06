@@ -3,8 +3,7 @@
 
 #include <iostream>
 
-int main()
-{
+int main() {
   std::cout
     << "\t|\n"
     << "|\t|\n"

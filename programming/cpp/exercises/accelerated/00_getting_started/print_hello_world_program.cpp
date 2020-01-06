@@ -4,8 +4,7 @@
 
 #include <iostream>
 
-int main()
-{
+int main() {
   std::cout
     << "// hello_world.cpp\n"
     << "// Print \"Hello, World!\" to the console.\n\n"
