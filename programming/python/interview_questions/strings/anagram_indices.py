@@ -6,19 +6,24 @@
 # DCP2.1;
 
 def anagram_indices_brute_force(s, w):
-  # Given a string s, return a dictionary whose keys are the unique characters
-  # in s, and whose values are the corresponding numbers of occurrences of each
-  # of the unique characters in s.
-  def character_counts(s):
-    counts = {}
-    for c in s:
-      counts[c] = counts.get(c, 0) + 1
-    return counts
-
   # Two strings are anagrams if and only if they have the same unique characters
   # and each unique character occurs the same number of times.
   def are_anagrams(s1, s2):
-    return character_counts(s1) == character_counts(s2)
+    if len(s1) != len(s2):
+      return False
+
+    character_count_diffs = {}
+    for c in s1:
+      character_count_diffs[c] = character_count_diffs.get(c, 0) + 1
+
+    for c in s2:
+      character_count_diffs[c] = character_count_diffs.get(c, 0) - 1
+      if character_count_diffs[c] < 0:
+        return False
+      if character_count_diffs[c] == 0:
+        del character_count_diffs[c]
+
+    return True
 
   # Iterate through all substrings of s that have the same length of w, and
   # check whether each of these substrings is an anagram of w.
@@ -34,47 +39,38 @@ def anagram_indices_running_histogram(s, w):
   if len(s) < len(w):
     return []
 
-  # Get a dictionary whose keys are the unique characters in w, and whose
-  # corresponding values are the numbers of times that each unique character
-  # occurs in w.
-  character_counts_w = {}
+  # Let d be a dictionary with arbitrary keys and integer values. We assume that
+  # keys that are included in the dictionary correspond to values of 0. Given a
+  # key and an integer delta, we add delta to the value of key in the
+  # dictionary. If this results in the value of the key being 0, then we remove
+  # the key from the dictionary.
+  def update_key_value(d, key, delta):
+    d[key] = d.get(key, 0) + delta
+    if d[key] == 0:
+      del d[key]
+
+  # We will maintain a dictionary diffs whose keys are characters, and whose
+  # values are the numbers of occurrences of the characters in w minus the
+  # numbers of occurrences of the characters in substrings of s. If this
+  # difference in occurrences is 0, then we do not include the character as a
+  # key in the dictionary. Whenever this dictionary is empty, we have found a
+  # substring of s that is an anagram of w. We begin by computing this
+  # dictionary for the first len(w) characters of s.
+  diffs = {}
   for c in w:
-    character_counts_w[c] = character_counts_w.get(w, 0) + 1
-
-  # Get a dictionary whose keys are the unique characters in the first len(w)
-  # characters of s, and whose corresponding values are the numbers of times
-  # that each unique character occurs in w.
-  character_counts_sub_s = {}
+    update_key_value(diffs, c, +1)
   for i in range(len(w)):
-    character_counts_sub_s[s[i]] = character_counts_sub_s.get(s[i], 0) + 1
+    update_key_value(diffs, s[i], -1)
+  anagram_indices = [] if diffs else [0]
 
-  # The first len(w) of characters are an anagram of w if and only if they
-  # contain the same unique characters as appear in w, and each character
-  # appears the same number of times in w and the first len(w) characters of s.
-  anagram_indices = (
-    [0]
-    if character_counts_sub_s == character_counts_w
-    else []
-  )
-  # Iterate over all substrings of s that have length len(w), except for the
-  # first len(w) characters since we have already checked if this substring is
-  # an anagram of w.
+  # We can easily update the dictionary when we shift the substring by one
+  # character -- we increment the count for the character that leaves the
+  # substring, and decrement the count for the character that enters the
+  # substring.
   for i in range(1, len(s) - len(w) + 1):
-    # Decrement the count of the character at index i - 1 in s. If the count for
-    # this character becomes zero, remove it from the dictionary.
-    character_counts_sub_s[s[i-1]] -= 1
-    if character_counts_sub_s[s[i-1]] == 0:
-      del character_counts_sub_s[s[i-1]]
-
-    # Increment the count of the character at index i + len(w) - 1.
-    character_counts_sub_s[s[i + len(w) - 1]] = (
-      character_counts_sub_s.get(s[i + len(w) - 1], 0) + 1
-    )
-
-    # The substring s[i:(i + len(w))] is an anagram for w if and only if the
-    # dictionary representing the character counts for this substring is equal
-    # to the dictionary representing the character counts for w.
-    if character_counts_sub_s == character_counts_w:
+    update_key_value(diffs, s[i-1], +1)
+    update_key_value(diffs, s[i + len(w) - 1], -1)
+    if not diffs:
       anagram_indices.append(i)
 
   return anagram_indices
