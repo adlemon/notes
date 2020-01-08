@@ -9,20 +9,48 @@ that we have read some of the values so far, and that we have no idea how many
 values remain to be read. Prove that we cannot afford to discard any of the
 values that we have read.
 ================================================================================
+Suppose we have read m values and then we discard one of the values. Let m1 be
+the number of values that are less than or equal to the discarded value, and m2
+be the number of values that are more than the discarded value. (The counts m1
+and m2 are counted after discarding the value and exclude the discarded value.)
+There are three cases to consider.
+
+1) m1 < m2. Suppose we read m2 - m1 additional values, all of which are less
+than or equal to the discarded value. Then there are m1 + (m2 - m1) = m2 values
+less than or equal to the discarded value and m2 values greater than the
+discarded value. Therefore, the discarded value is the median. However, since we
+no longer know the discarded value, we cannot compute the median.
+
+2) m1 = m2. Since there are m1 values that are less than or equal to the
+discarded value and m2 values that are more than the discarded value, the median
+is equal to the discard value. However, since we no longer know the discarded
+value, we cannot compute the median.
+
+3) m1 > m2. Suppose we read m1 - m2 additional values, all of which are greater
+than the discarded value. Then there are m1 values less than or equal to the
+discarded value and m2 + (m1 - m2) = m1 values greater than the discarded value.
+Therefore, the discarded value is the median. However, since we no longer know
+the discarded value, we cannot compute the median.
+
+Thus, we see that it is always possible that the additional values that we read
+will make it impossible to compute the median after discarding a value.
 
 ================================================================================
 3-2 Write a program to compute and print the quartiles of a set of integers.
 ================================================================================
+See quartiles.cpp.
 
 ================================================================================
 3-3 Write a program to count how many times each distinct word appears in its
 input.
 ================================================================================
+See count_words.cpp.
 
 ================================================================================
-3-4 Write a program to report the length of the longest and shortest string in
+3-4 Write a program to report the lengths of the shortest and longest words in
 its input.
 ================================================================================
+See shortest_longest_word_lengths.cpp.
 
 ================================================================================
 3-5 Write a program that will keep track of grades for several students at once.
@@ -30,6 +58,7 @@ The program could keep two vectors in sync: the first should hold the students'
 names, and the second the final grades that can be computed as input is read.
 You may assume a fixed number of homework grades.
 ================================================================================
+See multiple_grades_mean_homework.cpp.
 
 ================================================================================
 3-6 The average grade computation in grades_mean_homework.cpp will divide by
@@ -39,3 +68,4 @@ anything it likes. What does your C++ implementation do in this case? Rewrite
 the program so that its behavior does not depend on how the implementation
 treats division by zero.
 ================================================================================
+See grades_mean_homework_safe.cpp.
