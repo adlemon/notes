@@ -1,0 +1,2 @@
+gqq - format current line
+gq{motion} - format all lines through motion
