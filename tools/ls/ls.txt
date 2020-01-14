@@ -1,0 +1,5 @@
+-a, --all
+Do not ignore entries starting with '.'
+
+-l
+Use a long listing format.
