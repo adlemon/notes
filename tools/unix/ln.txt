@@ -1,0 +1,2 @@
+ln -s <target> <link>
+Create a symbolic link named <link> that refers to <target>.

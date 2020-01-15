@@ -1,0 +1,2 @@
+<cmd> > <file>
+Redirect the output of the command <cmd> to the file <file>.

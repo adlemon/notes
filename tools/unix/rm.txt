@@ -1,0 +1,5 @@
+rm <file>
+Remove the regular file <file>.
+
+rm -r <directory>
+Recursively remove the directory <directory> and its contents.

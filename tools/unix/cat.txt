@@ -1,0 +1,2 @@
+cat <file>
+Print the contents of <file> to the standard output.

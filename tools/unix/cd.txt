@@ -1,0 +1,2 @@
+cd <directory>
+Change the working directory to <directory>.

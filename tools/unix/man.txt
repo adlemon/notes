@@ -1,0 +1,11 @@
+man <command>
+Read the manual for <command>.
+
+man -k <term> := apropos <term>
+Search the manual pages for <term>.
+
+man -f <term> := whatis <term>
+Return all sections matching <term>.
+
+man <section_number> <cmd>
+Read section <section_number> of the manual page for <cmd>.

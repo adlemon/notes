@@ -1,0 +1,2 @@
+mv <source> <destination>
+Change the name of the file <source> to <destination>.

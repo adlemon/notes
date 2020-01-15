@@ -1,0 +1,3 @@
+touch <file>
+Update the modified timestamp for <file>, creating the file if it does not
+already exist.

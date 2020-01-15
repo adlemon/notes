@@ -1,0 +1,2 @@
+echo <string>
+Print <string> to the standard output.

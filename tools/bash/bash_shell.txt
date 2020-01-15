@@ -1,0 +1,44 @@
+!!
+The last command.
+
+<cmd> &
+Run the command <cmd> in the background.
+
+<CTRL>+\
+Send a quit signal (SIQUIT) to the current command.
+
+<CTRL>+a
+Move the cursor to the beginning of the line.
+
+<CTRL>+c
+Send an interrupt signal (SIGINT) to the current command.
+
+<CTRL>+e
+Move the cursor to the end of the line.
+
+<CTRL>+k
+Delete everything on and after the cursor.
+
+<CTRL>+l
+Clear the screen.
+
+<CTRL>+u
+Delete everything before the cursor.
+
+<CTRL>+w
+Delete the word before the cursor.
+
+<CTRL>+z
+Suspend the current process, and send it to the background.
+
+alias
+List all aliases and their values.
+
+jobs
+List all background running jobs.
+
+fg <job_id>
+Bring the job with ID <job_id> to the foreground.
+
+printenv
+Print all environment variables and their values.

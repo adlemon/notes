@@ -1,0 +1,2 @@
+rmdir <directory>
+Remove the directory <directory>.
