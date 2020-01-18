@@ -14,7 +14,7 @@
 #     c   g
 # DCP2.3;
 
-def print_zigzag(s, w):
+def print_zigzag_all_lines(s, w):
   if w == 1:
     return s
 
@@ -36,6 +36,26 @@ def print_zigzag(s, w):
 
   return '\n'.join(lines)
 
+def print_zigzag_line_by_line(s, w):
+  if w == 1:
+    return s
+
+  lines = [len(s) * [' '] for _ in range(w)]
+  for i in range(w):
+    j = i
+    is_descending = True
+    while j < len(s):
+      lines[i][j] = s[j]
+      if is_descending:
+        # Advance the cursor for lines i+1, ..., w-2, w-1, w-2, ..., i+1, i.
+        j += 2 * (w - i - 1)
+      else:
+        # Advance the cursor for lines i-1, ..., 1, 0, 1, ..., i-1, i.
+        j += 2 * i
+      is_descending = not is_descending
+
+  return '\n'.join(''.join(line).rstrip() for line in lines)
+
 def main():
   tests = (
     (
@@ -48,9 +68,7 @@ def main():
     ),
     (
       ('abcdef', 1),
-      '\n'.join([
-        'abcdef'
-      ])
+      'abcdef',
     ),
     (
       ('abcdef', 2),
@@ -59,9 +77,29 @@ def main():
         ' b d f'
       ])
     ),
+    (
+      ('abcdefghijklm', 4),
+      '\n'.join([
+        'a     g     m',
+        ' b   f h   l',
+        '  c e   i k',
+        '   d     j'
+      ])
+    ),
+    (
+      ('abcdefghijklmn', 5),
+      '\n'.join([
+        'a       i',
+        ' b     h j',
+        '  c   g   k',
+        '   d f     l n',
+        '    e       m'
+      ])
+    ),
   )
   sols = (
-    print_zigzag,
+    print_zigzag_all_lines,
+    print_zigzag_line_by_line,
   )
 
   correct_counts = {sol: 0 for sol in sols}
