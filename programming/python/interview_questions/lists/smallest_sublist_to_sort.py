@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # smallest_sublist_to_sort.py
 # Given a list of numbers, determine the indices of the smallest sublist that
 # must be sorted in order to sort the entire list in ascending order. Return
@@ -107,7 +108,10 @@ def main():
 
   correct_counts = {sol: 0 for sol in sols}
   for test_index, (lst, want) in enumerate(tests):
-    print('Test {}: lst = {}, want = {}'.format(test_index + 1, lst, want))
+    print('Test {}:'.format(test_index + 1))
+    print('lst = {}'.format(lst))
+    print('want = {}'.format(want))
+
     for sol in sols:
       got = sol(lst)
       if got == want:
@@ -115,6 +119,7 @@ def main():
         correct_counts[sol] += 1
       else:
         print('{} fails; got = {}'.format(sol.__name__, got))
+
     print()
 
   print('Summary:')

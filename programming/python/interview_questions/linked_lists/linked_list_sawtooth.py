@@ -115,8 +115,10 @@ def main():
   )
 
   correct_counts = {sol: 0 for sol in sols}
-  for lst in tests:
+  for test_index, lst in enumerate(tests):
+    print('Test {}:'.format(test_index + 1))
     print('lst = {}'.format(lst))
+
     for sol in sols:
       got = sol(lst.copy())
       if got.is_sawtooth():
@@ -124,6 +126,7 @@ def main():
         correct_counts[sol] += 1
       else:
         print('{} fails; got = {}'.format(sol.__name__, got))
+
     print()
 
   print('Summary:')

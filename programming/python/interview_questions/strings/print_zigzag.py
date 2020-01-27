@@ -103,8 +103,11 @@ def main():
   )
 
   correct_counts = {sol: 0 for sol in sols}
-  for (s, w), want in tests:
-    print('s = {}, w = {}, want =\n{}'.format(s, w, want))
+  for test_index, ((s, w), want) in enumerate(tests):
+    print('Test {}:'.format(test_index + 1))
+    print('s = {}, w = {}'.format(s, w))
+    print('want =\n{}'.format(want))
+
     for sol in sols:
       got = sol(s, w)
       if got == want:
@@ -112,6 +115,7 @@ def main():
         correct_counts[sol] += 1
       else:
         print('{} fails; got =\n{}'.format(sol.__name__, got))
+
     print()
 
   print('Summary:')

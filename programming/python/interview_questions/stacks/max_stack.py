@@ -85,16 +85,22 @@ def main():
 
   correct_counts = {sol: 0 for sol in sols}
   for sol in sols:
-    print(sol.__name__)
+    print('{}:'.format(sol.__name__))
     s = sol()
-    for op, data, want in tests:
-      print('op = {}, data = {}, want = {}'.format(op, data, want))
+
+    for test_index, (op, data, want) in enumerate(tests):
+      print('Test {}:'.format(test_index + 1))
+      print('op = {}, data = {}'.format(op, data))
+      print('want = {}'.format(want))
+
       got = getattr(s, op)(*data)
       if got == want:
         print('Test passes')
         correct_counts[sol] += 1
       else:
         print('Test fails; got = {}'.format(got))
+      print()
+
     print()
 
   print('Summary:')

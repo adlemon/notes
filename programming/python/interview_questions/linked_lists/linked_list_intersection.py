@@ -38,7 +38,7 @@ def make_intersecting_linked_lists(lst1, lst2, lst12):
     tail1 = tail1.next
     tail2 = tail2.next
 
-  return dummy1.next, dummy2.next, intersection_node
+  return (dummy1.next, dummy2.next), intersection_node
 
 def linked_list_intersection_length_difference(lst1, lst2):
   # Compute the lengths of the two lists.
@@ -123,10 +123,11 @@ def main():
   )
 
   correct_counts = {sol: 0 for sol in sols}
-  for lst1, lst2, want in tests:
-    print('lst1 = {}'.format(lst1))
-    print('lst2 = {}'.format(lst2))
+  for test_index, ((lst1, lst2), want) in enumerate(tests):
+    print('Test {}:'.format(test_index + 1))
+    print('lst1 = {}, lst2 = {}'.format(lst1, lst2))
     print('want = {}'.format(want))
+
     for sol in sols:
       got = sol(lst1, lst2)
       if got == want:
@@ -134,6 +135,7 @@ def main():
         correct_counts[sol] += 1
       else:
         print('{} fails; got = {}'.format(sol.__name__, got))
+
     print()
 
   print('Summary:')
