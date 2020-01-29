@@ -1,0 +1,6 @@
+sed -e script
+sed --expression=script
+Add the script to the commands to be executed
+
+sed -e 's/old/new/'
+Replace 'old' with 'new'.

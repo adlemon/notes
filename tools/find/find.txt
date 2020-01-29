@@ -1,0 +1,2 @@
+find . ! -perm /u=x
+Find all files that are not executable by their owner.
