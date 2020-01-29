@@ -1,0 +1,145 @@
+================================================================================
+5-0 Compile, execute, and test the programs in this chapter.
+================================================================================
+See failing_students_vector.cpp, failing_students_list.cpp, split_string.cpp,
+and frame_picture.cpp.
+
+================================================================================
+5-1 Design and implement a program to produce a permuted index. A permuted
+index is one in which each phrase is indexed by every word in the phrase. Given
+the following input
+********************************************************************************
+The quick brown fox
+jumped over the fence
+********************************************************************************
+you should return the following output.
+********************************************************************************
+      The quick     brown fox
+jumped over the     fence
+The quick brown     fox
+                    jumped over the fence
+         jumped     over the fence
+            The     quick brown fox
+    jumped over     the fence
+                    The quick brown fox
+********************************************************************************
+================================================================================
+See permuted_index.cpp.
+
+================================================================================
+5-2 Write the complete new version of the student-grading program, which
+extracts records for failing students, using vectors. Write another that uses
+lists. Measure the performance difference on inputs of 10 students, 1,000
+students, and 10,000 students.
+================================================================================
+See filter_list_vector_performance_comparison.cpp. Note that we simplify the
+problem somewhat by comparing the performance of vectors and lists when we want
+to delete every second element from the container. Additionally, since computers
+are much faster than they were when the book was written, we consider data sets
+containing up to 1,000,000 elements.
+
+================================================================================
+5-3 By using a typedef, we can write one version of the program that implements
+either a vector-based solution or a list-based one. Write and test this version
+of the program.
+================================================================================
+See failing_students_typedef.cpp.
+
+================================================================================
+5-4 Look again at the driver functions you wrote in the previous exercise. Note
+that it is possible to write a driver that differs only in the declaration of
+the type for the data structure that holds the input data. If your vector and
+list test drivers differ in any other way, rewrite them so that they differ
+only in this declaration.
+================================================================================
+See failing_students_typedef.cpp.
+
+================================================================================
+5-5 Write a function center(const vector<string>&) that returns a picture in
+which all the lines of the original picture are padded out to their full width,
+and the padding is as evenly divided as possible between the left and right
+sides of the picture. What are the properties of pictures for which such a
+function is useful? How can you tell whether a given picture has those
+properties?
+================================================================================
+See frame_center.cpp.
+
+This function is particularly useful for pictures in which each line is a
+palindrome and lines may have different lengths. See 5-10 below for details
+about palindromes.
+
+================================================================================
+5-6 Rewrite the extract_fails function from 5.1.1/77 so that instead of erasing
+each failing student from the input vector students, it copies the records for
+the passing students to the beginning of students, and then uses the resize
+function to remove the extra elements from the end of students. How does the
+performance of this version compare with the one in 5.1.1/77?
+================================================================================
+See failing_students_resize.cpp.
+
+================================================================================
+5-7 Given the implementation of frame in 5.8.1/93, and the following code
+fragment
+********************************************************************************
+vector<string> v;
+frame(v);
+********************************************************************************
+describe what happens in this call. In particular, trace through how both the
+width function and the frame function operate. Now, run this code. If the
+results differ from your expectations, first understand why your expectations
+and the program differ, and then change one to match the other.
+================================================================================
+The width of the picture is determined to be 0 -- we initialize the width to 0,
+and the for loop to go through the lines of the picture terminates before the
+first iteration because the vector v has size 0. The frame function then adds a
+border row consisting of "****" (the width of the picture + 4 copies of '*'),
+the for loop to process the lines of the picture terminates before the first
+iteration because there are no lines, and finally the frame function adds
+another border row consisting of "****" (the width of the picture + 4 copies of
+'*'). Thus, the code returns the following framed picture.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+****
+****
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+================================================================================
+5-8 In the hcat function from 5.8.3/95, what would happen if we defined s
+outside the scope of the while? Rewrite and execute the program to confirm your
+hypothesis.
+================================================================================
+If the only thing that we do is move the declaration of s outside the scope of
+the while loop, then the program will produce an error. At some point, we will
+find that s.size() is greater than width1, and width1 - s.size() will "wrap
+around" to produce a very large number since width1 and s.size() are both
+unsigned. Then, the space padding s += std::string(width1 - s.size(), ' ') will
+produce an extremely large string that will exhaust the memory available to the
+program. See hcat_append.cpp for a modified program that only adds the space
+padding if width1 > s.size(). In this modified program, each line of the output
+picture is the concatenation of all lines in the previous implementation of hcat
+up to and including the line.
+
+================================================================================
+5-9 Write a program to write the words in the input that do not contain any
+uppercase letters followed by the words that contain one or more uppercase
+letters.
+================================================================================
+See all_lowercase_some_uppercase.cpp.
+
+================================================================================
+5-10 Palindromes are words that are spelled the same right to left as left to
+right. Write a program to find all the palindromes in the words in the input.
+Also print the longest palindrome.
+================================================================================
+See print_palindromes.cpp.
+
+================================================================================
+5-11 In text processing it is sometimes useful to know whether a word has any
+ascenders or descenders. Ascenders are parts of lowercase letters that extend
+above the text line; in the English alphabet, the letters b, d, f, h, k, l, and
+t have ascenders. Similarly, the descenders are the parts of lowercase letters
+that descend below the line; in English, the letters g, j, p, q, and y have
+descenders. Write a program to determine whether a word has any ascenders or
+descenders. Extend that program to find the longest word in the input that has
+neither ascenders or descenders.
+================================================================================
+See ascenders_descenders.cpp.
