@@ -4,3 +4,6 @@ Add the script to the commands to be executed
 
 sed -e 's/old/new/'
 Replace 'old' with 'new'.
+
+sed -r -e 's/(.*)\.(.*)/One = \1, Two = \2/'
+Convert a string of the form "One.Two" to "One = One, Two = Two"

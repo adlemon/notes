@@ -1,0 +1,78 @@
+================================================================================
+6-0 Compile, execute, and test the programs in this chapter.
+================================================================================
+See find_urls.cpp, compare_grading_methods.cpp, partition_students_two_pass.cpp,
+and partition_students_one_pass.cpp.
+
+================================================================================
+6-1 Implement the frame and hcat functions for string pictures using iterators.
+================================================================================
+See frame_hcat_iterators.cpp.
+
+================================================================================
+6-2 Write a program to test the find_urls function.
+================================================================================
+See find_urls.cpp.
+
+================================================================================
+6-3 What does this program fragment do?
+********************************************************************************
+std::vector<int> u(10, 100);
+std::vector<int> v;
+std::copy(u.begin(), u.end(), v.begin());
+********************************************************************************
+Write a program that contains this fragment, and compile and execute it.
+================================================================================
+See copy_vector_bug.cpp. The program terminates with a segmentation fault. The
+problem is that the code does not allow the vector v to grow as needed to
+accommodate the data being copied from u. Eventually we exhaust the space
+initially allocated for v; the next attempt to copy an int produces the
+segmentation fault.
+
+================================================================================
+6-4 Correct that program that you wrote in the previous exercise to copy from u
+into v. There are at least two possible ways to correct the program. Implement
+both, and describe the relative advantages and disadvantages of each approach.
+================================================================================
+See copy_vector.cpp. The two approaches are:
+(1) allocate exactly enough space for v to hold all the elements of u; and
+(2) allow v to grow as necessary as elements are added from u.
+The advantage of (1) is that we do not allocate unnecessary space: the space
+allocate for a vector typically doubles every time we need more space, so (2)
+will typically allocate more space than is necessary. The advantage of (2) is
+that we only need to modify each element once when we copy it over; in contrast,
+with (1) we modify each element twice: once when we set the value to 0 initially
+and again when we copy the value from u into v.
+
+================================================================================
+6-5 Write an analysis function to call median_nonzero.
+================================================================================
+See compare_grading_methods.cpp.
+
+================================================================================
+6-6 Note that the function from the previous exercise and the functions
+median_analysis and average_analysis do the same task. Merge these three
+functions into a single function.
+================================================================================
+See compare_grading_methods_analysis_functions.cpp.
+
+================================================================================
+6-7 The portion of the grading analysis program that read and classified
+student records depending on whether they did or did not do all the homework is
+similar to the program that we solved in extract_fails. Write a function to
+handle this subproblem.
+================================================================================
+See filter_students.cpp.
+
+================================================================================
+6-8 Write a single function that can be used to classify students based on
+criteria of your choice. Test this function by using it in place of the
+extract_fails program, and use it in the program to analyze student grades.
+================================================================================
+See filter_students.cpp.
+
+================================================================================
+6-9 Use a library algorithm to concatenate all the elements of a
+std::vector<std::string>.
+================================================================================
+See concatenate_string_vector.cpp.
