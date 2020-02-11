@@ -1,6 +1,21 @@
 !!
 The last command.
 
+!^ (short for !!:^)
+The first argument of the preceding command
+
+!$ (short for !!:$)
+The last argument of the preceding command
+
+!!:<n>
+The nth argument of the preceding command
+
+!!:<m>-<n>
+The mth through nth arguments of the preceding command
+
+!<cmd prefix>:<word designator>
+The <word designator> for the most recent command that starts with <cmd prefix>
+
 <cmd> &
 Run the command <cmd> in the background.
 
