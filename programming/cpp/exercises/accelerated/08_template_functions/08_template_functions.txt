@@ -1,0 +1,101 @@
+================================================================================
+8-0 Compile, execute, and test the programs in this chap.ter
+================================================================================
+See median.cpp, max.cpp, find.cpp, copy.cpp, replace.cpp, reverse.cpp,
+binary_search.cpp, and split.cpp.
+
+================================================================================
+8-1 Note that the various analysis functions that we wrote in section 6.2 (page
+110) share the same behavior; they differ only in terms of the functions they
+call to calculate the final grade. Write a template function, parameterized by
+the type of the grading function, and use that function to evaluate the grading
+schemes.
+================================================================================
+See compare_course_grade_methods.cpp.
+
+================================================================================
+8-2 Implement the following library algorithms, which we used in Chapter 6 and
+described in section 6.5 (page 121). Specify what kinds of iterators they
+require. Try to minimize the number of distinct iterator operations that each
+function requires. After you have finished your implementation, see Appendix
+B.3 (page 322) to see how well you did.
+  * equal(b, e, b2)
+  * find(b, e, t)
+  * copy(b, e, d)
+  * remove_copy_if(b, e, d, p)
+  * transform(b, e, d, f)
+  * accumulate(b, e, t)
+  * search(b, e, b2, e2)
+  * find_if(b, e, p)
+  * remove_copy(b, e, d, t)
+  * remove(b, e, t)
+  * partition(b, e, p)
+================================================================================
+See library_templates.cpp.
+
+================================================================================
+8-3 As we learned in section 4.1.4 (page 58), it can be expensive to return (or
+pass) a container by value. Yet the median function that we wrote in section
+8.1.1 (page 140) passes the vector by value. Could we rewrite the median
+function to operate on iterators instead of passing the vector? If we did so,
+what would you expect the performance impact to be?
+================================================================================
+We passed the argument of the median function by value rather than reference
+because we need to sort the vector of values in order to compute the median and
+we did not want to modify the input. (For example, if the vector represented an
+ordered collection of homework scores, then sorting the vector would destroy
+the correspondence between homework numbers and scores.) Writing the function
+using iterators would not help us avoid this problem -- we would still need to
+create a copy of the vector so that we can sort the copy without changing the
+original container.
+
+================================================================================
+8-4 Implement the swap function that we used in section 8.2.5 (page 148). Why
+did we call swap rather than exchange *beg and *end directly?
+================================================================================
+See library_templates.cpp. In order to directly exchange *beg and *end, we would
+need to store one of the values in a temporary variable. This is a problem
+because we cannot determine the type of the temporary variable based on the
+iterator.
+
+================================================================================
+8-5 Reimplement the gen_sentence and xref functions from Chapter 7 to use
+output iterators rather than putting their entire output in one data structure.
+Test these new versions by writing programs that attach the output iterator
+directly to the standard output, and by storing the results in a list<string>
+and a map<string, vector<int> >, respectively.
+================================================================================
+See generate_sentences_iterators.cpp
+
+================================================================================
+8-6 Suppose that m has type map<int, string>, and that we encounter a call to
+copy(m.begin(), m.end(), back_inserter(x)). What can we say about the type of
+x? What if the call were copy(x.begin(), x.end(), back_inserter(m)) instead?
+================================================================================
+The call copy(m.begin(), m.end(), back_inserter(x)) implies that x is a
+container whose elements are of type pair<int, string> and that x has a member
+function called "push_back" that takes such a pair as argument. The call
+copy(x.begin(), s.end(), back_inserter(m)) can never compile because maps do not
+support "push_back", so a map cannot be used as the argument of back_inserter.
+See map_copy.cpp.
+
+================================================================================
+8-7 Why doesn't the max function use two template parameters, one for each
+argument type?
+================================================================================
+If the max function were to use two template parameters, one for each argument
+type, then we could not specify the function's return type in a way that would
+always make sense. For example, suppose that we chose the output type of max to
+be the type of the first argument. Define int i = 1 and double d = 1.5. Then
+max(i, d) would return the integer 1, while max(d, i) would return the double
+2.5. This asymmetry is inconsistent with the usual definition of max.
+
+================================================================================
+8-8 In the binary_search function in section 8.2.6 (page 148), why didn't we
+write (begin + end) / 2 instead of the more complicated begin + (end - begin) /
+2?
+================================================================================
+We cannot write (begin + end) / 2 because the sum of two iterators is not
+defined, so begin + end is not defined. However, end - begin is defined to
+return an integer, so that (end - begin) / 2 is also an integer, and begin +
+(end - begin) / 2 (which is an iterator plus an integer) is defined.
