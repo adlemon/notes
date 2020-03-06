@@ -1,0 +1,42 @@
+================================================================================
+10-0 Compile, execute, and test the programs in this chapter.
+================================================================================
+See modify_using_pointer.cpp, print_squares.cpp, print_letter_grade.cpp,
+print_args.cpp, filter_lines.cpp, and copy_cstring.cpp.
+
+================================================================================
+10-1 Rewrite the student-grading program from section 9.6 (page 166) to
+generate letter grades.
+================================================================================
+See course_letter_grades.cpp.
+
+================================================================================
+10-2 Rewrite the median function from section 8.1.1 (page 14) so that we can
+call it with either a vector or a built-in array. The function should allow
+containers of any arithmetic type.
+================================================================================
+See generic_median.cpp.
+
+================================================================================
+10-3 Write a test program to verify that the median function operators
+correctly. Ensure that calling median does not change the order of the elements
+in the container.
+================================================================================
+See generic_median.cpp.
+
+================================================================================
+10-4 Write a class that implements a list that holds strings.
+================================================================================
+See string_list.cpp.
+
+================================================================================
+10-5 Write a bidirectional iterator for your class that implements a list that
+holds strings.
+================================================================================
+See string_list.cpp.
+
+================================================================================
+10-6 Test the class that implements a list that holds strings by rewriting the
+split function to put its output in an instance of your class.
+================================================================================
+See string_list.cpp.
