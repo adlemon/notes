@@ -1,0 +1,116 @@
+================================================================================
+11-0 Compile, execute, and test the programs in this chapter.
+================================================================================
+See simple_vector.cpp.
+
+================================================================================
+11-1 The Student_info structure that we defined in Chapter 9 did not define a
+copy constructor, assignment operator, or destructor. Why not?
+================================================================================
+The members of the Student_info structure have types std::string, double, and
+std::vector<double>. The Student_info structure does not allocate memory for any
+of these members -- the storage is either managed automatically or managed by
+the member object. Therefore, there was no need to define a copy constructor,
+assignment operator, or destructor since the default operations suffice in cases
+in which we do not need to manage memory resources.
+
+================================================================================
+11-2 That structure did define a default constructor. Why?
+================================================================================
+The Student_info structure contains two members (midterm and final) that are not
+implicitly constructed (because they have type double). Therefore, we define a
+default constructor to ensure that every Student_info structure has valid values
+for all members at all times.
+
+================================================================================
+11-3 What does the synthesized assignment operator for Student_info objects do?
+================================================================================
+The synthesized assignment operator for the Student_info operator copies all of
+the members from the right side of the assignment to the left side.
+
+================================================================================
+11-4 How many members does the synthesized Student_info destructor destroy?
+================================================================================
+The synthesized Student_info destructor calls the destructors for the
+std::string and std::vector<int> class; the two member variables of type double
+are automatically cleaned up.
+
+================================================================================
+11-5 Instrument the Student_info class to count how often objects are created,
+copied, assigned, and destroyed. Use this instrumented class to execute the
+student record programs from Chapter 6. Using the instrumented Student_info
+class will let you see how many copies the library algorithms are doing.
+Comparing the number of copies will let you estimate what proportion of the
+cost differences we saw are accounted for by the use of each library class. Do
+this instrumentation analysis.
+================================================================================
+See student_course_grades_instrumented.cpp.
+
+================================================================================
+11-6 Add an operation to remove an element from a SimpleVector and another to
+empty the entire SimpleVector. These should behave analogously to the erase and
+clear operations on the standard vector container.
+================================================================================
+See simple_vector.cpp.
+
+================================================================================
+11-7 Once you've added erase and clear to SimpleVector, you can use that class
+instead of vector in most of the earlier programs in this book. Rewrite the
+Student_info programs from Chapter 9 and the programs that work with character
+pictures from Chapter 5 to use your SimpleVector class instead of the standard
+vector container.
+================================================================================
+The rewritten programs are exactly the same as the original problems, with
+"vector<T>" replaced by "SimpleVector<T>".
+
+================================================================================
+11-8 Write a simplified version of the standard list class and its associated
+iterator.
+================================================================================
+See simple_list.cpp.
+
+================================================================================
+11-9 The grow function in section 11.5.1 (page 208) doubles the amount of
+memory each time it needs more. Estimate the efficiency gains of this strategy.
+Once you've predicted how much of a difference it makes, change the grow
+function appropriately and measure the difference.
+================================================================================
+Let us compare the following two strategies for managing a vector.
+(1) The vector initially has space for 1 element; every time we need more space
+in order to add a new element, we double the capacity of the vector. Suppose we
+add the integers 1, ..., 2^k to the vector. For k = 3, we can draw the following
+diagram.
+Allocation #1: 1
+Allocation #2: 1, 2
+Allocation #3: 1, 2, 3, 4
+Allocation #4: 1, 2, 3, 4, 5, 6, 7, 8
+We see that 1 is copied 3 times, 2 is copied 2 times, 3 and 4 are copied 1 time,
+and 5, 6, 7, and 8 are copied 0 times. In the general case, if the integer x
+satisfies 2^(i-1) < x <= 2^(i), then x will be copied k - i times. The total
+number of copies is
+\sum_{x=1}^{2^k} #(copies of x)
+= #(copies of x) + \sum_{i=1}^{k} \sum_{i=2^{i-1} + 1}^{2^{i}} #(copies of x)
+= k + \sum_{i=1}^{k} \sum_{i=2^{i-1} + 1}^{2^{i}} (k - i - 1)
+= k + \sum_{i=1}^{k} (k - i - 1) 2^{i-1}
+= 2^{k} - 1.
+
+(2) The vector initially has space for 1 element; every time we need more space
+in order to add a new element, we increase the capacity of the vector by 1.
+Suppose we add the integers 1, ..., 2^k to the vector. For k = 2, we can draw
+the following diagram.
+Allocation #1: 1
+Allocation #2: 1, 2
+Allocation #3: 1, 2, 3
+Allocation #4: 1, 2, 3, 4
+We see that 1 is copied 3 times, 2 is copied 2 times, 3 is copied 1 time, and 4
+is copied 0 times. In the general case, the integer x will be copied 2^{k} - x
+times. The total number of copies is
+\sum_{x=1}^{2^{k}} #(copies of x)
+= \sum_{x=1}^{2^{k}} (2^{k} - x)
+= 2^{k-1} (2^{k} - 1).
+
+Comparing the two strategies, we see that strategy (2) results in 2^{k-1} times
+more copies than strategy (1). If we think of n = 2^{k} as the number of
+elements in the vector, then strategy (1) results in ~n copies, while strategy
+(2) results in ~n^2 copies. This explains why strategy (1) is so much more
+efficient than strategy (2).

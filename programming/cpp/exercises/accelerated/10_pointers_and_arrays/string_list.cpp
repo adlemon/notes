@@ -22,19 +22,19 @@ class StringListNode {
 class StringListIterator {
   public:
     StringListIterator(StringListNode* cursor): cursor_(cursor) {}
-    bool operator==(const StringListIterator& other) {
+    bool operator==(const StringListIterator& other) const {
       return cursor_ == other.cursor_;
     }
-    bool operator!=(const StringListIterator& other) {
+    bool operator!=(const StringListIterator& other) const {
       return !(*this == other);
     }
     StringListIterator operator++() {
       cursor_ = cursor_->next_;
-      return cursor_;
+      return *this;
     }
     StringListIterator operator--() {
       cursor_ = cursor_->prev_;
-      return cursor_;
+      return *this;
     }
     std::string& operator*() {
       return cursor_->s_;
