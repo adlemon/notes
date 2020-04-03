@@ -20,9 +20,9 @@ int main() {
   }
 
   for (std::map<int, int>::const_iterator it = value_counts.begin();
-      it != value_counts.end(); ++it) {
-    std::cout << it->first << ": " << it->second
-              << " (" << 100.0 * it->second / num_samples << "%)\n";
+       it != value_counts.end(); ++it) {
+    std::cout << it->first << ": " << it->second << " ("
+              << 100.0 * it->second / num_samples << "%)\n";
   }
 }
 
@@ -59,4 +59,3 @@ int nrand(int n) {
 
   return r;
 }
-

@@ -18,7 +18,7 @@ int main() {
 
   std::cout << "\nThe words and their counts are:\n";
   for (std::map<std::string, int>::const_iterator it = word_counts.begin();
-      it != word_counts.end(); ++it) {
+       it != word_counts.end(); ++it) {
     std::cout << it->first << "\t" << it->second << "\n";
   }
 }

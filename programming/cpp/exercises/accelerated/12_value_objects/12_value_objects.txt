@@ -1,0 +1,150 @@
+================================================================================
+12-0 Compile, execute, and test the programs in this chapter.
+================================================================================
+See simple_string.cpp.
+
+================================================================================
+12-1 Reimplement the Str class, but choose an implementation strategy that
+requires the class to manage the storage itself. For example, you might store
+an array of char and a length. Consider what implications this change in design
+has for copy control. Also consider the cost of using Vec (e.g., in storage
+overhead).
+================================================================================
+See managed_string.cpp.
+
+================================================================================
+12-2 Implement the c_str, data, and copy functions.
+================================================================================
+See simple_string.cpp.
+
+================================================================================
+12-3 Define the relational operators for Str. In doing so, you will want to
+know that the <cstring> header defines a function called strcmp, which compares
+two character pointers. The function returns a negative integer if the
+null-terminated character array denoted by the first pointer is less than the
+second, zero if the two strings are equal, or a positive value if the first
+string is greater than the second.
+================================================================================
+See simple_string.cpp.
+
+================================================================================
+12-4 Define the equality and inequality operators for Str.
+================================================================================
+See simple_string.cpp.
+
+================================================================================
+12-5 Implement concatenation for Str so as not to rely on conversions from
+const char*.
+================================================================================
+See simple_string.cpp.
+
+================================================================================
+12-6 Give Str an operation that will let us implicitly use a Str object as a
+condition. The test should fail if the Str is empty, and should succeed
+otherwise.
+================================================================================
+See simple_string.cpp.
+
+================================================================================
+12-7 The standard string class provides random-access iterators to manipulate
+the string's characters. Add iterators and the iterator operations begin and
+end to your Str class.
+================================================================================
+See simple_string.cpp.
+
+================================================================================
+12-8 Add the getline function to the Str class.
+================================================================================
+See simple_string.cpp.
+
+================================================================================
+12-9 Use class ostream_iterator to reimplement the Str output operator. Why
+didn't we ask you to reimplement the input operator using istream_iterator?
+================================================================================
+See simple_string.cpp. We cannot use an istream_iterator for the input operator
+because there is no way to stop copying from the input stream when we encounter
+a whitespace character after the first non-whitespace character. In particular,
+the following program requires the user to enter something that cannot be read
+as a character (such as end-of-file marker) in order to stop reading input.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#include <iostream>
+#include <iterator>
+#include <string>
+
+int main() {
+  std::string s;
+
+  std::cout << "Enter a word: ";
+  std::copy(std::istream_iterator<char>(std::cin),
+            std::istream_iterator<char>(), std::back_inserter(s));
+  std::cout << "s = " << s;
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+If the user enters the text "word1 word2\n", then there are two problems. First,
+the istream_iterator skips whitespace, but keeps reading characters. Second, the
+istream_iterator continues to read characters until the user enters something
+that cannot be read as a character (such as an end-of-file marker). Thus, the
+program will print "word1word2" with no newline.
+
+================================================================================
+12-10 Having seen in section 12.1 (page 212) how Str defined a constructor that
+takes a pair of iterators, we can imagine that such a constructor would be
+useful in class Vec. Add this constructor to Vec, and reimplement Str to use
+the Vec constructor instead of calling copy.
+================================================================================
+See ../11_abstract_data_types/simple_vector.cpp and simple_string.cpp.
+
+================================================================================
+12-11 If you add the operations listed in these exercises, then you can use the
+Str class in all the examples in this book. Reimplement the operations on
+character pictures from Chapter 5 and the split functions from section 5.6
+(page 87) and section 6.1.1 (page 103).
+================================================================================
+The rewritten programs are the same as the original programs, with "std::string"
+replaced by "SimpleString".
+
+================================================================================
+12-12 Define the insert function that takes two iterators for the Vec and Str
+classes.
+================================================================================
+I am not sure what this question is asking. There are versions of the insert
+function for vectors and string that take three iterators (a position to insert
+at, and two iterators defining the range of elements to insert), but I am not
+sure what version of the insert function takes two iterators.
+
+================================================================================
+12-13 Provide an assign function that could be used to assign the values in an
+array to a Vec.
+================================================================================
+See ../11_abstract_data_types/simple_vector.cpp.
+
+================================================================================
+12-14 Write a program to initialize a Vec from a string.
+================================================================================
+I am not sure what this question is asking. Vec is defined as a template class,
+and it only makes sense to initialize a vector with value type char from a
+string.
+
+================================================================================
+12-15 The read_hw function from section 4.1.3 (page 57) checked the stream from
+which it read to determine whether the function had hit end-of-file, or had
+encountered an invalid input. Our Str input operator does no such check. Why?
+Will it leave the stream in an invalid state?
+================================================================================
+The user signaled to the read_hw function that they were done entering homework
+grades by putting the input stream into an invalid state. Therefore, it was
+necessary to reset the input stream at the end of read_hw in order to allow
+further input to be read. (Note that read_hw could have detected the end of the
+homework grades differently; for example, read_hw could have adopted the
+convention that entering -1 signaled the end of the homework grades. In this
+case, it would not have been necessary to reset the input stream in order to
+allow further input to be read.) The end of the input for the Str input
+operator is indicated either by whitespace or by putting the input stream in an
+invalid state. If the end of the input is indicated by whitespace, then the
+input stream is not left in an invalid state, so there is no need to reset it.
+If the end of the input stream is indicated by putting the input stream in an
+invalid state (such as by entering an end-of-file marker), then it is the
+responsibility of the caller of the input operator to reset the stream if
+desired. In particular, the input operator has no idea how an invalid state for
+the input stream should be interpreted, so all the input operator can do is
+retain the invalid state, and rely on the caller to take appropriate action.

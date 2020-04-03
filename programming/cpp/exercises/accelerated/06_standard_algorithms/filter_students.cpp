@@ -13,30 +13,24 @@ struct StudentData {
   std::vector<double> homeworks;
 };
 
-std::istream& read(std::istream& in, StudentData& student);
+std::istream &read(std::istream &in, StudentData &student);
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-);
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg);
 
 double median(std::vector<double> v);
 
-double course_grade(const StudentData& student);
+double course_grade(const StudentData &student);
 
-bool is_failing(const StudentData& student);
-bool did_all_hw(const StudentData& student);
+bool is_failing(const StudentData &student);
+bool did_all_hw(const StudentData &student);
 
-std::vector<StudentData> filter_students(
-  std::vector<StudentData>& students,
-  bool predicate(const StudentData& student)
-);
+std::vector<StudentData>
+filter_students(std::vector<StudentData> &students,
+                bool predicate(const StudentData &student));
 
-std::ostream& print(
-  std::ostream& out,
-  const std::vector<StudentData>& students
-);
+std::ostream &print(std::ostream &out,
+                    const std::vector<StudentData> &students);
 
 int main() {
   std::vector<StudentData> students;
@@ -47,10 +41,8 @@ int main() {
   }
 
   std::vector<StudentData> failing_students = students;
-  std::vector<StudentData> passing_students = filter_students(
-    failing_students,
-    is_failing
-  );
+  std::vector<StudentData> passing_students =
+      filter_students(failing_students, is_failing);
 
   if (passing_students.empty()) {
     std::cout << "\n\nNo students passed the class.\n";
@@ -67,10 +59,8 @@ int main() {
   }
 
   std::vector<StudentData> students_did_all_hw = students;
-  std::vector<StudentData> students_missing_hw = filter_students(
-    students_did_all_hw,
-    did_all_hw
-  );
+  std::vector<StudentData> students_missing_hw =
+      filter_students(students_did_all_hw, did_all_hw);
 
   if (students_did_all_hw.empty()) {
     std::cout << "\nNo students did all the homework.\n";
@@ -86,7 +76,7 @@ int main() {
   }
 }
 
-std::istream& read(std::istream& in, StudentData& student) {
+std::istream &read(std::istream &in, StudentData &student) {
   std::cout << "Enter the name of the student: ";
   if (!(in >> student.name)) {
     return in;
@@ -109,11 +99,8 @@ std::istream& read(std::istream& in, StudentData& student) {
   return in;
 }
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-) {
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg) {
   return 0.2 * midterm_exam + 0.4 * final_exam + 0.4 * homework_avg;
 }
 
@@ -123,54 +110,42 @@ double median(std::vector<double> v) {
   std::vector<double>::size_type n = v.size();
   std::vector<double>::size_type m = n / 2;
 
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }
 
-double course_grade(const StudentData& student) {
-  return course_grade(
-    student.midterm_exam,
-    student.final_exam,
-    median(student.homeworks)
-  );
+double course_grade(const StudentData &student) {
+  return course_grade(student.midterm_exam, student.final_exam,
+                      median(student.homeworks));
 }
 
-bool is_failing(const StudentData& student) {
+bool is_failing(const StudentData &student) {
   return course_grade(student) < 60;
 }
 
-bool did_all_hw(const StudentData& student) {
-  return std::find(
-    student.homeworks.begin(),
-    student.homeworks.end(),
-    0
-  ) == student.homeworks.end();
+bool did_all_hw(const StudentData &student) {
+  return std::find(student.homeworks.begin(), student.homeworks.end(), 0) ==
+         student.homeworks.end();
 }
 
-std::vector<StudentData> filter_students(
-  std::vector<StudentData>& students,
-  bool predicate(const StudentData& student)
-) {
+std::vector<StudentData>
+filter_students(std::vector<StudentData> &students,
+                bool predicate(const StudentData &student)) {
   std::vector<StudentData>::iterator filtered_students_begin =
-    std::stable_partition(students.begin(), students.end(), predicate);
+      std::stable_partition(students.begin(), students.end(), predicate);
 
-  std::vector<StudentData> filtered_students(
-    filtered_students_begin,
-    students.end()
-  );
+  std::vector<StudentData> filtered_students(filtered_students_begin,
+                                             students.end());
 
   students.erase(filtered_students_begin, students.end());
 
   return filtered_students;
 }
 
-std::ostream& print(
-  std::ostream& out,
-  const std::vector<StudentData>& students
-) {
+std::ostream &print(std::ostream &out,
+                    const std::vector<StudentData> &students) {
   for (std::vector<StudentData>::const_iterator it = students.begin();
-      it != students.end(); ++it) {
+       it != students.end(); ++it) {
     out << it->name << '\n';
   }
   return out;
 }
-

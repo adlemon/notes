@@ -23,9 +23,8 @@ int main() {
   int num_homework = 0;
   double homework_total = 0;
   double homework_grade;
-  std::cout
-    << "Enter the homework grades for " << name
-    << " or end-of-file if done: ";
+  std::cout << "Enter the homework grades for " << name
+            << " or end-of-file if done: ";
   while (std::cin >> homework_grade) {
     homework_total += homework_grade;
     num_homework++;
@@ -37,10 +36,9 @@ int main() {
   }
   double homework_mean = homework_total / num_homework;
 
-  double course_grade = 0.4 * homework_mean
-    + 0.2 * midterm_exam
-    + 0.4 * final_exam;
+  double course_grade =
+      0.4 * homework_mean + 0.2 * midterm_exam + 0.4 * final_exam;
   std::streamsize prec = std::cout.precision();
-  std::cout << "Course grade for " << name << ": "
-    << std::setprecision(3) << course_grade << std::setprecision(prec) << "\n";
+  std::cout << "Course grade for " << name << ": " << std::setprecision(3)
+            << course_grade << std::setprecision(prec) << "\n";
 }

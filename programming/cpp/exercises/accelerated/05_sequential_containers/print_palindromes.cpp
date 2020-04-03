@@ -19,7 +19,7 @@ int main() {
 
   std::vector<std::string> palindromes;
   for (std::vector<std::string>::const_iterator it = words.begin();
-      it < words.end(); ++it) {
+       it < words.end(); ++it) {
     if (is_palindrome(*it)) {
       palindromes.push_back(*it);
     }
@@ -33,19 +33,19 @@ int main() {
   std::string longest_palindrome;
   std::cout << "\nThe palindromes are:\n";
   for (std::vector<std::string>::const_iterator it = palindromes.begin();
-      it < palindromes.end(); ++it) {
+       it < palindromes.end(); ++it) {
     std::cout << *it << '\n';
     if (it->size() > longest_palindrome.size()) {
       longest_palindrome = *it;
     }
   }
-  
+
   std::cout << "\nThe longest palindrome is: " << longest_palindrome << "\n";
 }
 
 bool is_palindrome(std::string s) {
   for (std::string::const_iterator left = s.begin(), right = s.end() - 1;
-      left < right; ++left, --right) {
+       left < right; ++left, --right) {
     if (*left != *right) {
       return false;
     }

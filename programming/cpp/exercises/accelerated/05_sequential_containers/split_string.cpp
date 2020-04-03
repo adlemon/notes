@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> split_string(const std::string& s);
+std::vector<std::string> split_string(const std::string &s);
 
 int main() {
   std::string line;
@@ -16,12 +16,12 @@ int main() {
   std::vector<std::string> words = split_string(line);
   std::cout << "\nThe words in the line are:\n";
   for (std::vector<std::string>::const_iterator it = words.begin();
-      it < words.end(); ++it) {
+       it < words.end(); ++it) {
     std::cout << *it << '\n';
   }
 }
 
-std::vector<std::string> split_string(const std::string& s) {
+std::vector<std::string> split_string(const std::string &s) {
   std::vector<std::string> words;
 
   std::string::size_type i = 0;

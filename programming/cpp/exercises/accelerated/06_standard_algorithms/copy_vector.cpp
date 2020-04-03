@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-void print(std::ostream& out, std::vector<int> v);
+void print(std::ostream &out, std::vector<int> v);
 
 int main() {
   std::vector<int> u(10, 100);
@@ -22,9 +22,9 @@ int main() {
   std::cout << "\n";
 }
 
-void print(std::ostream& out, std::vector<int> v) {
+void print(std::ostream &out, std::vector<int> v) {
   out << "[";
-  
+
   for (std::vector<int>::const_iterator it = v.begin(); it != v.end(); ++it) {
     if (it != v.begin()) {
       out << ", ";

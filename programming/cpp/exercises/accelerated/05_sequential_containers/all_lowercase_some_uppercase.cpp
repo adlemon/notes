@@ -41,7 +41,7 @@ bool all_lowercase(std::string s) {
 
 void print_words(std::vector<std::string> words) {
   for (std::vector<std::string>::const_iterator it = words.begin();
-      it < words.end(); ++it) {
+       it < words.end(); ++it) {
     std::cout << *it << '\n';
   }
 }

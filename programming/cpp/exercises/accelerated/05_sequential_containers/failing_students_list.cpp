@@ -18,11 +18,11 @@ double course_grade(double midterm_exam, double final_exam,
                     double homework_avg);
 double median(std::vector<double> v);
 double course_grade(double midterm_exam, double final_exam,
-                    const std::vector<double>& homeworks);
-double course_grade(StudentInfo& student);
-bool is_failing(StudentInfo& student);
-std::list<StudentInfo> FilterFailingStudents(std::list<StudentInfo>& students);
-void PrintStudents(const std::list<StudentInfo>& students);
+                    const std::vector<double> &homeworks);
+double course_grade(StudentInfo &student);
+bool is_failing(StudentInfo &student);
+std::list<StudentInfo> FilterFailingStudents(std::list<StudentInfo> &students);
+void PrintStudents(const std::list<StudentInfo> &students);
 
 int main() {
   std::list<StudentInfo> students = ReadStudents();
@@ -34,7 +34,7 @@ int main() {
   } else {
     std::cout << "\nThe passing students were:\n";
     for (std::list<StudentInfo>::const_iterator it = students.begin();
-        it != students.end(); ++it) {
+         it != students.end(); ++it) {
       std::cout << it->name << '\n';
     }
   }
@@ -44,7 +44,7 @@ int main() {
   } else {
     std::cout << "\nThe failing students were:\n";
     for (std::list<StudentInfo>::const_iterator it = failing_students.begin();
-        it != failing_students.end(); ++it) {
+         it != failing_students.end(); ++it) {
       std::cout << it->name << '\n';
     }
   }
@@ -88,24 +88,22 @@ double median(std::vector<double> v) {
 
   std::vector<double>::size_type n = v.size();
   std::vector<double>::size_type m = n / 2;
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }
 
 double course_grade(double midterm_exam, double final_exam,
-                    const std::vector<double>& homeworks) {
+                    const std::vector<double> &homeworks) {
   return course_grade(midterm_exam, final_exam, median(homeworks));
 }
 
-double course_grade(StudentInfo& student) {
+double course_grade(StudentInfo &student) {
   return course_grade(student.midterm_exam, student.final_exam,
                       student.homeworks);
 }
 
-bool is_failing(StudentInfo& student) {
-  return course_grade(student) < 60;
-}
+bool is_failing(StudentInfo &student) { return course_grade(student) < 60; }
 
-std::list<StudentInfo> FilterFailingStudents(std::list<StudentInfo>& students) {
+std::list<StudentInfo> FilterFailingStudents(std::list<StudentInfo> &students) {
   std::list<StudentInfo> failing_students;
 
   std::list<StudentInfo>::iterator it = students.begin();
@@ -121,9 +119,9 @@ std::list<StudentInfo> FilterFailingStudents(std::list<StudentInfo>& students) {
   return failing_students;
 }
 
-void PrintStudents(const std::list<StudentInfo>& students) {
+void PrintStudents(const std::list<StudentInfo> &students) {
   for (std::list<StudentInfo>::const_iterator it = students.begin();
-      it != students.end(); ++it) {
+       it != students.end(); ++it) {
     std::cout << it->name << '\n';
   }
 }

@@ -10,8 +10,8 @@
 std::vector<int> GenerateVector(int n);
 std::list<int> GenerateList(int n);
 bool FilterElement(int i);
-void FilterVector(std::vector<int>& v);
-void FilterList(std::list<int>& lst);
+void FilterVector(std::vector<int> &v);
+void FilterList(std::list<int> &lst);
 
 struct PerformanceBenchmark {
   int n;
@@ -44,11 +44,11 @@ int main() {
   }
 
   for (std::vector<PerformanceBenchmark>::const_iterator it =
-      performance_benchmarks.begin();
-      it != performance_benchmarks.end(); ++it) {
-    std::cout << std::setw(7) << it->n
-              << " " << std::setw(10) << it->vector_execution.count()
-              << " " << std::setw(10) << it->list_execution.count() << "\n";
+           performance_benchmarks.begin();
+       it != performance_benchmarks.end(); ++it) {
+    std::cout << std::setw(7) << it->n << " " << std::setw(10)
+              << it->vector_execution.count() << " " << std::setw(10)
+              << it->list_execution.count() << "\n";
   }
 }
 
@@ -68,11 +68,9 @@ std::list<int> GenerateList(int n) {
   return lst;
 }
 
-bool FilterElement(int i) {
-  return ((i % 2) == 1);
-}
+bool FilterElement(int i) { return ((i % 2) == 1); }
 
-void FilterVector(std::vector<int>& v) {
+void FilterVector(std::vector<int> &v) {
   std::vector<int>::iterator it = v.begin();
   while (it != v.end()) {
     if (FilterElement(*it)) {
@@ -82,7 +80,7 @@ void FilterVector(std::vector<int>& v) {
     }
   }
 }
-void FilterList(std::list<int>& lst) {
+void FilterList(std::list<int> &lst) {
   std::list<int>::iterator it = lst.begin();
   while (it != lst.end()) {
     if (FilterElement(*it)) {

@@ -4,11 +4,11 @@
 #include <iostream>
 
 int main() {
-  std::cout
-    << "\t|\n"
-    << "|\t|\n"
-    << "|\t|\t|\n"
-    << "|\t|\t|\t|\n"
-    << "|\t|\t|\t|\t|\n" << std::endl;
+  std::cout << "\t|\n"
+            << "|\t|\n"
+            << "|\t|\t|\n"
+            << "|\t|\t|\t|\n"
+            << "|\t|\t|\t|\t|\n"
+            << std::endl;
   return 0;
 }

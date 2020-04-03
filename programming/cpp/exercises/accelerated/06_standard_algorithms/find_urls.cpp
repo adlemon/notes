@@ -8,19 +8,14 @@
 #include <vector>
 
 bool is_url_char(char c);
-std::string::const_iterator find_url_begin(
-  const std::string::const_iterator& b,
-  const std::string::const_iterator& e
-);
-std::string::const_iterator find_url_end(
-  const std::string::const_iterator& b,
-  const std::string::const_iterator& e
-);
-std::vector<std::string> find_urls(const std::string& s);
-void print(
-  std::vector<std::string>::const_iterator b,
-  const std::vector<std::string>::const_iterator& e
-);
+std::string::const_iterator
+find_url_begin(const std::string::const_iterator &b,
+               const std::string::const_iterator &e);
+std::string::const_iterator find_url_end(const std::string::const_iterator &b,
+                                         const std::string::const_iterator &e);
+std::vector<std::string> find_urls(const std::string &s);
+void print(std::vector<std::string>::const_iterator b,
+           const std::vector<std::string>::const_iterator &e);
 
 int main() {
   std::string s;
@@ -33,18 +28,15 @@ int main() {
 }
 
 bool is_url_char(char c) {
-  static const std::string url_characters =  "~;/?:@=&$-_.+!*`(),";
-  return isalnum(c) || std::find(
-    url_characters.begin(),
-    url_characters.end(),
-    c
-  ) != url_characters.end();
+  static const std::string url_characters = "~;/?:@=&$-_.+!*`(),";
+  return isalnum(c) ||
+         std::find(url_characters.begin(), url_characters.end(), c) !=
+             url_characters.end();
 }
 
-std::string::const_iterator find_url_begin(
-  const std::string::const_iterator& b,
-  const std::string::const_iterator& e
-) {
+std::string::const_iterator
+find_url_begin(const std::string::const_iterator &b,
+               const std::string::const_iterator &e) {
   static const std::string url_sep = "://";
 
   std::string::const_iterator it = b;
@@ -68,14 +60,12 @@ std::string::const_iterator find_url_begin(
   return e;
 }
 
-std::string::const_iterator find_url_end(
-  const std::string::const_iterator& b,
-  const std::string::const_iterator& e
-) {
+std::string::const_iterator find_url_end(const std::string::const_iterator &b,
+                                         const std::string::const_iterator &e) {
   return std::find_if_not(b, e, is_url_char);
 }
 
-std::vector<std::string> find_urls(const std::string& s) {
+std::vector<std::string> find_urls(const std::string &s) {
   std::vector<std::string> urls;
 
   std::string::const_iterator cursor = s.begin(), string_end = s.end();
@@ -91,10 +81,8 @@ std::vector<std::string> find_urls(const std::string& s) {
   return urls;
 }
 
-void print(
-  std::vector<std::string>::const_iterator b,
-  const std::vector<std::string>::const_iterator& e
-) {
+void print(std::vector<std::string>::const_iterator b,
+           const std::vector<std::string>::const_iterator &e) {
   while (b != e) {
     std::cout << *b << '\n';
     ++b;

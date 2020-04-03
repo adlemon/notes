@@ -12,25 +12,18 @@ struct StudentInfo {
   std::vector<double> homeworks;
 };
 
-std::istream& read_student(std::istream& in, StudentInfo& student);
-std::vector<StudentInfo> read_students(std::istream& in);
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-);
+std::istream &read_student(std::istream &in, StudentInfo &student);
+std::vector<StudentInfo> read_students(std::istream &in);
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg);
 double median(std::vector<double> v);
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  std::vector<double> homeworks
-);
-double course_grade(const StudentInfo& student);
+double course_grade(double midterm_exam, double final_exam,
+                    std::vector<double> homeworks);
+double course_grade(const StudentInfo &student);
 bool is_failing(double course_grade);
-bool is_failing(const StudentInfo& student);
-std::vector<StudentInfo> filter_failing_students(
-  std::vector<StudentInfo>& students
-);
+bool is_failing(const StudentInfo &student);
+std::vector<StudentInfo>
+filter_failing_students(std::vector<StudentInfo> &students);
 
 int main() {
   std::vector<StudentInfo> students = read_students(std::cin);
@@ -41,7 +34,7 @@ int main() {
   } else {
     std::cout << "\n\nThe passing students are:\n";
     for (std::vector<StudentInfo>::const_iterator it = students.begin();
-        it != students.end(); ++it) {
+         it != students.end(); ++it) {
       std::cout << it->name << '\n';
     }
   }
@@ -51,13 +44,13 @@ int main() {
   } else {
     std::cout << "\nThe failing students are:\n";
     for (std::vector<StudentInfo>::const_iterator it = failing_students.begin();
-        it != failing_students.end(); ++it) {
+         it != failing_students.end(); ++it) {
       std::cout << it->name << '\n';
     }
   }
 }
 
-std::istream& read_student(std::istream& in, StudentInfo& student) {
+std::istream &read_student(std::istream &in, StudentInfo &student) {
   std::cout << "Enter the name of the student: ";
   in >> student.name;
 
@@ -81,7 +74,7 @@ std::istream& read_student(std::istream& in, StudentInfo& student) {
   return in;
 }
 
-std::vector<StudentInfo> read_students(std::istream& in) {
+std::vector<StudentInfo> read_students(std::istream &in) {
   StudentInfo student;
   std::vector<StudentInfo> students;
   while (read_student(in, student)) {
@@ -92,11 +85,8 @@ std::vector<StudentInfo> read_students(std::istream& in) {
   return students;
 }
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-) {
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg) {
   return 0.2 * midterm_exam + 0.4 * final_exam + 0.4 * homework_avg;
 }
 
@@ -104,40 +94,27 @@ double median(std::vector<double> v) {
   std::sort(v.begin(), v.end());
   std::vector<double>::size_type n = v.size();
   std::vector<double>::size_type m = n / 2;
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  std::vector<double> homeworks
-) {
-  return course_grade(
-    midterm_exam,
-    final_exam,
-    median(homeworks)
-  );
+double course_grade(double midterm_exam, double final_exam,
+                    std::vector<double> homeworks) {
+  return course_grade(midterm_exam, final_exam, median(homeworks));
 }
 
-double course_grade(const StudentInfo& student) {
-  return course_grade(
-    student.midterm_exam,
-    student.final_exam,
-    student.homeworks
-  );
+double course_grade(const StudentInfo &student) {
+  return course_grade(student.midterm_exam, student.final_exam,
+                      student.homeworks);
 }
 
-bool is_failing(double course_grade) {
-  return course_grade < 60;
-}
+bool is_failing(double course_grade) { return course_grade < 60; }
 
-bool is_failing(const StudentInfo& student) {
+bool is_failing(const StudentInfo &student) {
   return is_failing(course_grade(student));
 }
 
-std::vector<StudentInfo> filter_failing_students(
-  std::vector<StudentInfo>& students
-) {
+std::vector<StudentInfo>
+filter_failing_students(std::vector<StudentInfo> &students) {
   std::vector<StudentInfo>::size_type read_cursor = 0, write_cursor = 0;
   std::vector<StudentInfo> failing_students;
   while (read_cursor < students.size()) {

@@ -10,17 +10,11 @@
 #include <vector>
 
 double median(std::vector<double> v);
-double compute_course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-);
-double compute_course_grade(
-  double midterm_exam,
-  double final_exam,
-  const std::vector<double>& homeworks
-);
-std::istream& read_homeworks(std::istream& in, std::vector<double>& homeworks);
+double compute_course_grade(double midterm_exam, double final_exam,
+                            double homework_avg);
+double compute_course_grade(double midterm_exam, double final_exam,
+                            const std::vector<double> &homeworks);
+std::istream &read_homeworks(std::istream &in, std::vector<double> &homeworks);
 
 int main() {
   std::string name;
@@ -35,21 +29,20 @@ int main() {
 
   std::vector<double> homeworks;
   std::cout << "Enter the homework grades for " << name
-    << " followed by an end-of-file: ";
+            << " followed by an end-of-file: ";
   read_homeworks(std::cin, homeworks);
 
   try {
-    double course_grade = compute_course_grade(midterm_exam, final_exam, homeworks);
+    double course_grade =
+        compute_course_grade(midterm_exam, final_exam, homeworks);
     std::streamsize prec = std::cout.precision();
     std::cout << "The course grade for " << name << " is "
-      << std::setprecision(3)
-      << course_grade
-      << std::setprecision(prec)
-      << std::endl;
+              << std::setprecision(3) << course_grade << std::setprecision(prec)
+              << std::endl;
   } catch (std::domain_error) {
-    std::cout << std::endl << "Unable to compute course grade for " << name
-      << " because no homework grades were entered."
-      << std::endl;
+    std::cout << std::endl
+              << "Unable to compute course grade for " << name
+              << " because no homework grades were entered." << std::endl;
     return 1;
   }
 
@@ -64,22 +57,16 @@ double median(std::vector<double> v) {
   std::sort(v.begin(), v.end());
   std::vector<double>::size_type n = v.size();
   std::vector<double>::size_type m = n / 2;
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }
 
-double compute_course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-) {
+double compute_course_grade(double midterm_exam, double final_exam,
+                            double homework_avg) {
   return 0.2 * midterm_exam + 0.4 * final_exam + 0.4 * homework_avg;
 }
 
-double compute_course_grade(
-  double midterm_exam,
-  double final_exam,
-  const std::vector<double>& homeworks
-) {
+double compute_course_grade(double midterm_exam, double final_exam,
+                            const std::vector<double> &homeworks) {
   if (homeworks.empty()) {
     throw std::domain_error("student has done no homework");
   }
@@ -87,7 +74,7 @@ double compute_course_grade(
   return compute_course_grade(midterm_exam, final_exam, median(homeworks));
 }
 
-std::istream& read_homeworks(std::istream& in, std::vector<double>& homeworks) {
+std::istream &read_homeworks(std::istream &in, std::vector<double> &homeworks) {
   if (in) {
     homeworks.clear();
 

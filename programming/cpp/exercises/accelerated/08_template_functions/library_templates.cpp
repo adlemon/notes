@@ -10,8 +10,7 @@
 namespace my {
 // swap(x, y)
 // Swap the values of the variables x and y.
-template <class T>
-void swap(T& x, T& y) {
+template <class T> void swap(T &x, T &y) {
   T tmp = x;
   x = y;
   y = tmp;
@@ -20,8 +19,7 @@ void swap(T& x, T& y) {
 // equal(b, e, b2)
 // Returns true if every element in the range [b, e) is equal to the
 // corresponding element in the range [b2, b2 + (e - b2)) and false otherwise.
-template <class It1, class It2>
-bool equal(It1 b, It1 e, It2 b2) {
+template <class It1, class It2> bool equal(It1 b, It1 e, It2 b2) {
   while (b != e) {
     if (*b != *b2) {
       return false;
@@ -36,8 +34,7 @@ bool equal(It1 b, It1 e, It2 b2) {
 // Returns the first iterator in the range [b, e) that marks the beginning of a
 // subsequence of [b, e) whose values are equal to the corresponding values in
 // the range [b2, e2).
-template <class It1, class It2>
-It1 search(It1 b, It1 e, It2 b2, It2 e2) {
+template <class It1, class It2> It1 search(It1 b, It1 e, It2 b2, It2 e2) {
   while (b != e) {
     It1 i = b;
     It2 i2 = b2;
@@ -58,8 +55,7 @@ It1 search(It1 b, It1 e, It2 b2, It2 e2) {
 // find(b, e, t)
 // Returns the first iterator in the range [b, e) whose value is equal to t, or
 // e if there is no iterator in the range [b, e) whose value is equal to t.
-template <class It, class Val>
-It find(It b, It e, Val t) {
+template <class It, class Val> It find(It b, It e, Val t) {
   while (b != e && *b != t) {
     ++b;
   }
@@ -70,8 +66,7 @@ It find(It b, It e, Val t) {
 // Returns the first iterator in the range [b, e) whose value satisfies the
 // predicate p, or e if there is no iterator in the range [b, e) whose value
 // satisfies the predicate p.
-template <class It, class Pred>
-It find_if(It b, It e, Pred p) {
+template <class It, class Pred> It find_if(It b, It e, Pred p) {
   while (b != e && !p(*b)) {
     ++b;
   }
@@ -80,8 +75,7 @@ It find_if(It b, It e, Pred p) {
 
 // copy(b, e, d)
 // Copies all elements from the range [b, e) to the destination d.
-template <class In, class Out>
-void copy(In b, In e, Out d) {
+template <class In, class Out> void copy(In b, In e, Out d) {
   while (b != e) {
     *d = *b;
     ++b;
@@ -122,8 +116,7 @@ void remove_copy_if(In b, In e, Out d, Pred p) {
 // the end of the container, and returns an iterator pointing to the first
 // element whose value is equal to t (or e if there is no element whose value
 // is not equal to t).
-template <class It, class Val>
-It remove(It b, It e, Val t) {
+template <class It, class Val> It remove(It b, It e, Val t) {
   // We define a "write cursor" w to keep track of where the next value of t
   // should be added.
   It w = b;
@@ -154,8 +147,7 @@ void transform(In b, In e, Out d, Fun f) {
 // the predicate p returns true are at the front of the container, and returns
 // an iterator to the first element for which the predicate returns false (or to
 // e if there is no element for which the predicate returns false).
-template <class It, class Pred>
-It partition(It b, It e, Pred p) {
+template <class It, class Pred> It partition(It b, It e, Pred p) {
   // Maintain a cursor with the location where we should put the next element
   // for which the predicate returns true.
   It w = b;
@@ -172,8 +164,7 @@ It partition(It b, It e, Pred p) {
 // accumulate(b, e, t)
 // Returns the sum of all values in the range [b, e) starting from the initial
 // value t. The returned value has the same type as t.
-template <class It, class Val>
-Val accumulate(It b, It e, Val t) {
+template <class It, class Val> Val accumulate(It b, It e, Val t) {
   while (b != e) {
     t += *b;
     ++b;
@@ -183,22 +174,15 @@ Val accumulate(It b, It e, Val t) {
 
 } // namespace my
 
-bool is_even(const int x) {
-  return (x % 2) == 0;
-}
+bool is_even(const int x) { return (x % 2) == 0; }
 
-bool is_odd(const int x) {
-  return (x % 2) == 1;
-}
+bool is_odd(const int x) { return (x % 2) == 1; }
 
-template <class Cont>
-void print(const Cont& c) {
+template <class Cont> void print(const Cont &c) {
   std::copy(c.begin(), c.end(), std::ostream_iterator<int>(std::cout, " "));
 }
 
-int square(int x) {
-  return x * x;
-}
+int square(int x) { return x * x; }
 
 int main() {
   {
@@ -225,8 +209,7 @@ int main() {
     std::cout << "\n";
 
     std::cout << "equal(v.begin(), v.end(), lst.begin()) => "
-              << my::equal(v.begin(), v.end(), lst.begin())
-              << "\n";
+              << my::equal(v.begin(), v.end(), lst.begin()) << "\n";
   }
 
   {
@@ -245,8 +228,7 @@ int main() {
     std::cout << "\n";
 
     std::cout << "equal(v.begin(), v.end(), lst.begin()) => "
-              << my::equal(v.begin(), v.end(), lst.begin())
-              << "\n";
+              << my::equal(v.begin(), v.end(), lst.begin()) << "\n";
   }
 
   {
@@ -266,15 +248,10 @@ int main() {
     print(lst);
     std::cout << "\n";
 
-    std::vector<int>::const_iterator s = my::search(
-      v.begin(),
-      v.end(),
-      lst.begin(),
-      lst.end()
-    );
+    std::vector<int>::const_iterator s =
+        my::search(v.begin(), v.end(), lst.begin(), lst.end());
     std::cout << "search(v.begin(), v.end(), lst.begin(), lst.end()) => "
-              << ((s != v.end()) ? "found" : "not found")
-              << "\n";
+              << ((s != v.end()) ? "found" : "not found") << "\n";
   }
 
   {
@@ -294,15 +271,10 @@ int main() {
     print(lst);
     std::cout << "\n";
 
-    std::vector<int>::const_iterator s = my::search(
-      v.begin(),
-      v.end(),
-      lst.begin(),
-      lst.end()
-    );
+    std::vector<int>::const_iterator s =
+        my::search(v.begin(), v.end(), lst.begin(), lst.end());
     std::cout << "search(v.begin(), v.end(), lst.begin(), lst.end()) => "
-              << ((s != v.end()) ? "found" : "not found")
-              << "\n";
+              << ((s != v.end()) ? "found" : "not found") << "\n";
   }
 
   {
@@ -335,16 +307,10 @@ int main() {
     print(v);
     std::cout << "\n";
 
-    std::vector<int>::const_iterator i_even = my::find_if(
-      v.begin(),
-      v.end(),
-      is_even
-    );
-    std::vector<int>::const_iterator i_odd = my::find_if(
-      v.begin(),
-      v.end(),
-      is_odd
-    );
+    std::vector<int>::const_iterator i_even =
+        my::find_if(v.begin(), v.end(), is_even);
+    std::vector<int>::const_iterator i_odd =
+        my::find_if(v.begin(), v.end(), is_odd);
 
     std::cout << "find_if(v.begin(), v.end(), is_even) => "
               << ((i_even != v.end()) ? "found" : "not found") << "\n"

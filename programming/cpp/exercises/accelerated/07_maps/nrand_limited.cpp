@@ -24,8 +24,8 @@ int main() {
   }
 
   for (int i = 0; i < n; i++) {
-    std::cout << i << ": " << value_counts[i]
-              << " (" << 100.0 * value_counts[i] / num_samples << "%)\n";
+    std::cout << i << ": " << value_counts[i] << " ("
+              << 100.0 * value_counts[i] / num_samples << "%)\n";
   }
 }
 
@@ -50,9 +50,7 @@ int rand_helper(int n, int n0, int generate_random()) {
   return r;
 }
 
-int n0rand() {
-  return sub_random(n0, RAND_MAX);
-}
+int n0rand() { return sub_random(n0, RAND_MAX); }
 
 int nrand(int n) {
   if (n <= n0) {

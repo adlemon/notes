@@ -7,11 +7,11 @@
 #include <string>
 #include <vector>
 
-bool has_char(const std::string& s, char c);
-bool intersect(const std::string& s1, const std::string& s2);
-bool has_ascender(const std::string& s);
-bool has_descender(const std::string& s);
-bool has_ascender_or_descender(const std::string& s);
+bool has_char(const std::string &s, char c);
+bool intersect(const std::string &s1, const std::string &s2);
+bool has_ascender(const std::string &s);
+bool has_descender(const std::string &s);
+bool has_ascender_or_descender(const std::string &s);
 
 int main() {
   std::string word;
@@ -33,7 +33,7 @@ int main() {
   } else {
     std::cout << "\nThe words with an ascender or descender are:\n";
     for (std::vector<std::string>::const_iterator it = words.begin();
-        it != words.end(); ++it) {
+         it != words.end(); ++it) {
       std::cout << *it << '\n';
     }
 
@@ -44,7 +44,7 @@ int main() {
 
 // either an ascender ('b', 'd', 'f', h', 'k', or 'l') or descender ('g', 'j',
 // 'p', 'q', or 'y'), and the longest such word.
-bool has_char(const std::string& s, char c) {
+bool has_char(const std::string &s, char c) {
   for (std::string::const_iterator it = s.begin(); it != s.end(); ++it) {
     if (*it == c) {
       return true;
@@ -53,7 +53,7 @@ bool has_char(const std::string& s, char c) {
   return false;
 }
 
-bool intersect(const std::string& s1, const std::string& s2) {
+bool intersect(const std::string &s1, const std::string &s2) {
   for (std::string::const_iterator it = s2.begin(); it != s2.end(); ++it) {
     if (has_char(s1, *it)) {
       return true;
@@ -62,14 +62,10 @@ bool intersect(const std::string& s1, const std::string& s2) {
   return false;
 }
 
-bool has_ascender(const std::string& s) {
-  return intersect(s, "bdfhkl");
-}
+bool has_ascender(const std::string &s) { return intersect(s, "bdfhkl"); }
 
-bool has_descender(const std::string& s) {
-  return intersect(s, "gjpqy");
-}
+bool has_descender(const std::string &s) { return intersect(s, "gjpqy"); }
 
-bool has_ascender_or_descender(const std::string& s) {
+bool has_ascender_or_descender(const std::string &s) {
   return has_ascender(s) || has_descender(s);
 }

@@ -15,7 +15,7 @@ struct StudentInfo {
 };
 
 // Uncomment one of the following typedefs.
-//typedef std::vector<StudentInfo> student_container_type;
+// typedef std::vector<StudentInfo> student_container_type;
 typedef std::list<StudentInfo> student_container_type;
 
 student_container_type ReadStudents();
@@ -24,11 +24,10 @@ double course_grade(double midterm_exam, double final_exam,
 double median(std::vector<double> v);
 double course_grade(double midterm_exam, double final_exam,
                     std::vector<double> homeworks);
-double course_grade(const StudentInfo& student);
-bool is_failing(const StudentInfo& student);
-student_container_type filter_failing_students(
-  student_container_type& students
-);
+double course_grade(const StudentInfo &student);
+bool is_failing(const StudentInfo &student);
+student_container_type
+filter_failing_students(student_container_type &students);
 
 int main() {
   student_container_type students = ReadStudents();
@@ -39,7 +38,7 @@ int main() {
   } else {
     std::cout << "\nThe passing students are:\n";
     for (student_container_type::const_iterator it = students.begin();
-        it != students.end(); ++it) {
+         it != students.end(); ++it) {
       std::cout << it->name << "\n";
     }
   }
@@ -49,7 +48,7 @@ int main() {
   } else {
     std::cout << "\nThe failing students are:\n";
     for (student_container_type::const_iterator it = failing_students.begin();
-        it != failing_students.end(); ++it) {
+         it != failing_students.end(); ++it) {
       std::cout << it->name << "\n";
     }
   }
@@ -85,7 +84,7 @@ student_container_type ReadStudents() {
 }
 
 double course_grade(double midterm_exam, double final_exam,
-    double homework_avg) {
+                    double homework_avg) {
   return 0.2 * midterm_exam + 0.4 * final_exam + 0.4 * homework_avg;
 }
 
@@ -94,7 +93,7 @@ double median(std::vector<double> v) {
 
   std::vector<double>::size_type n = v.size();
   std::vector<double>::size_type m = n / 2;
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }
 
 double course_grade(double midterm_exam, double final_exam,
@@ -102,18 +101,17 @@ double course_grade(double midterm_exam, double final_exam,
   return course_grade(midterm_exam, final_exam, median(homeworks));
 }
 
-double course_grade(const StudentInfo& student) {
+double course_grade(const StudentInfo &student) {
   return course_grade(student.midterm_exam, student.final_exam,
                       student.homeworks);
 }
 
-bool is_failing(const StudentInfo& student) {
+bool is_failing(const StudentInfo &student) {
   return course_grade(student) < 60;
 }
 
-student_container_type filter_failing_students(
-  student_container_type& students
-) {
+student_container_type
+filter_failing_students(student_container_type &students) {
   student_container_type failing_students;
 
   student_container_type::iterator it = students.begin();

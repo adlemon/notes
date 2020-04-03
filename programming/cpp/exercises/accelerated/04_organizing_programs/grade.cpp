@@ -10,11 +10,8 @@ double grade(double midterm_exam, double final_exam, double homework_avg) {
   return 0.2 * midterm_exam + 0.4 * final_exam + 0.4 * homework_avg;
 }
 
-double grade(
-  double midterm_exam,
-  double final_exam,
-  std::vector<double> homeworks
-) {
+double grade(double midterm_exam, double final_exam,
+             std::vector<double> homeworks) {
   if (homeworks.empty()) {
     throw std::domain_error("course grade for student without homework grades");
   }
@@ -22,6 +19,6 @@ double grade(
   return grade(midterm_exam, final_exam, median(homeworks));
 }
 
-double grade(const StudentInfo& s) {
+double grade(const StudentInfo &s) {
   return grade(s.midterm_exam, s.final_exam, s.homeworks);
 }

@@ -25,14 +25,14 @@ int main() {
 
   for (std::vector<StudentInfo>::size_type i = 0; i < students.size(); i++) {
     std::cout << students[i].name
-      << std::string(max_name_length - students[i].name.size() + 1, ' ');
+              << std::string(max_name_length - students[i].name.size() + 1,
+                             ' ');
 
     try {
       double course_grade = grade(students[i]);
       std::streamsize prec = std::cout.precision();
-      std::cout << std::setprecision(3)
-        << course_grade
-        << std::setprecision(prec);
+      std::cout << std::setprecision(3) << course_grade
+                << std::setprecision(prec);
     } catch (std::domain_error e) {
       std::cout << e.what();
     }

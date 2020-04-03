@@ -18,5 +18,5 @@ double median(std::vector<double> v) {
   //   The median is (v[m-1] + v[m]) / 2.
   // Case II: n = 2 * m + 1 is odd.
   //   The median is v[m].
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }

@@ -9,11 +9,11 @@
 typedef std::string picture_line;
 typedef std::vector<picture_line> picture;
 
-std::istream& read(std::istream& in, picture& p);
-picture_line::size_type width(const picture& p);
-picture frame(const picture& p);
-picture hcat(const picture& p1, const picture& p2);
-void print(std::ostream& out, const picture& p);
+std::istream &read(std::istream &in, picture &p);
+picture_line::size_type width(const picture &p);
+picture frame(const picture &p);
+picture hcat(const picture &p1, const picture &p2);
+void print(std::ostream &out, const picture &p);
 
 int main() {
   picture p1, p2;
@@ -28,7 +28,7 @@ int main() {
   print(std::cout, hcat(frame(p1), frame(p2)));
 }
 
-std::istream& read(std::istream& in, picture& p) {
+std::istream &read(std::istream &in, picture &p) {
   picture_line line;
   while (std::getline(in, line)) {
     p.push_back(line);
@@ -38,7 +38,7 @@ std::istream& read(std::istream& in, picture& p) {
   return in;
 }
 
-picture_line::size_type width(const picture& p) {
+picture_line::size_type width(const picture &p) {
   picture_line::size_type w = 0;
 
   for (picture::const_iterator it = p.begin(); it != p.end(); ++it) {
@@ -48,7 +48,7 @@ picture_line::size_type width(const picture& p) {
   return w;
 }
 
-picture frame(const picture& p) {
+picture frame(const picture &p) {
   picture_line::size_type w = width(p);
 
   picture framed;
@@ -62,7 +62,7 @@ picture frame(const picture& p) {
   return framed;
 }
 
-picture hcat(const picture& p1, const picture& p2) {
+picture hcat(const picture &p1, const picture &p2) {
   picture_line::size_type w1 = width(p1);
 
   picture p;
@@ -88,7 +88,7 @@ picture hcat(const picture& p1, const picture& p2) {
   return p;
 }
 
-void print(std::ostream& out, const picture& p) {
+void print(std::ostream &out, const picture &p) {
   for (picture::const_iterator it = p.begin(); it != p.end(); ++it) {
     out << *it << '\n';
   }

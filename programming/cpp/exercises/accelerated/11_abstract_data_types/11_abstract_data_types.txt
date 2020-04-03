@@ -60,7 +60,7 @@ Student_info programs from Chapter 9 and the programs that work with character
 pictures from Chapter 5 to use your SimpleVector class instead of the standard
 vector container.
 ================================================================================
-The rewritten programs are exactly the same as the original problems, with
+The rewritten programs are exactly the same as the original programs, with
 "vector<T>" replaced by "SimpleVector<T>".
 
 ================================================================================

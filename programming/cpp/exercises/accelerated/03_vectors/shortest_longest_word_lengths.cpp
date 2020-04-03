@@ -21,7 +21,6 @@ int main() {
     have_read_word = true;
   }
 
-  std::cout
-    << "Length of shortest word: " << shortest_length << "\n"
-    << "Length of longest word:  " << longest_length << "\n";
+  std::cout << "Length of shortest word: " << shortest_length << "\n"
+            << "Length of longest word:  " << longest_length << "\n";
 }

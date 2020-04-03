@@ -25,12 +25,9 @@ int main() {
   }
 
   std::streamsize prec = std::cout.precision();
-  std::cout
-    << "The course grade for " << name << " is "
-    << std::setprecision(3)
-    << 0.4 * final_exam + 0.2 * midterm_exam + 0.4 * sum / count
-    << std::setprecision(prec)
-    << "." << std::endl;
+  std::cout << "The course grade for " << name << " is " << std::setprecision(3)
+            << 0.4 * final_exam + 0.2 * midterm_exam + 0.4 * sum / count
+            << std::setprecision(prec) << "." << std::endl;
 
   return 0;
 }

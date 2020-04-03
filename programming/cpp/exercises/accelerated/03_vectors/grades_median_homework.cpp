@@ -27,26 +27,22 @@ int main() {
 
   std::vector<double>::size_type num_homework = homework.size();
   if (num_homework == 0) {
-    std::cout
-      << "Cannot compute the course grade"
-         " without any homework grades."
-      << std::endl;
+    std::cout << "Cannot compute the course grade"
+                 " without any homework grades."
+              << std::endl;
     return 1;
   }
 
   int m = num_homework / 2;
   std::sort(homework.begin(), homework.end());
   double homework_median = ((num_homework % 2) == 0)
-                         ? (homework[m] + homework[m + 1]) / 2
-                         : homework[m];
+                               ? (homework[m] + homework[m + 1]) / 2
+                               : homework[m];
 
   std::streamsize prec = std::cout.precision();
-  std::cout
-    << "The course grade for " << name << " is "
-    << std::setprecision(3)
-    << 0.4 * final_exam + 0.2 * midterm_exam + 0.4 * homework_median
-    << std::setprecision(prec)
-    << "." << std::endl;
+  std::cout << "The course grade for " << name << " is " << std::setprecision(3)
+            << 0.4 * final_exam + 0.2 * midterm_exam + 0.4 * homework_median
+            << std::setprecision(prec) << "." << std::endl;
 
   return 0;
 }

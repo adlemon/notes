@@ -12,17 +12,13 @@
 void print_picture(std::vector<std::string> picture);
 std::string::size_type width(std::vector<std::string> picture);
 std::vector<std::string> frame(std::vector<std::string> picture);
-std::vector<std::string> hcat(
-  std::vector<std::string> left,
-  std::vector<std::string> right
-);
-std::vector<std::string> vcat(
-  std::vector<std::string> top,
-  std::vector<std::string> bottom
-);
+std::vector<std::string> hcat(std::vector<std::string> left,
+                              std::vector<std::string> right);
+std::vector<std::string> vcat(std::vector<std::string> top,
+                              std::vector<std::string> bottom);
 
 int main() {
-  std::vector< std::vector<std::string> > pictures(3);
+  std::vector<std::vector<std::string>> pictures(3);
 
   for (int i = 0; i < 3; i++) {
     std::string s;
@@ -35,19 +31,12 @@ int main() {
 
   std::cout << "\nThe collage is as follows.\n";
   print_picture(
-    vcat(
-      hcat(
-        frame(pictures[0]),
-        frame(pictures[1])
-      ),
-      frame(pictures[2])
-    )
-  );
+      vcat(hcat(frame(pictures[0]), frame(pictures[1])), frame(pictures[2])));
 }
 
 void print_picture(std::vector<std::string> picture) {
   for (std::vector<std::string>::const_iterator it = picture.begin();
-      it < picture.end(); ++it) {
+       it < picture.end(); ++it) {
     std::cout << *it << '\n';
   }
 }
@@ -55,7 +44,7 @@ void print_picture(std::vector<std::string> picture) {
 std::string::size_type width(std::vector<std::string> picture) {
   std::string::size_type w = 0;
   for (std::vector<std::string>::const_iterator it = picture.begin();
-      it < picture.end(); ++it) {
+       it < picture.end(); ++it) {
     w = std::max(it->size(), w);
   }
   return w;
@@ -67,7 +56,7 @@ std::vector<std::string> frame(std::vector<std::string> picture) {
   std::vector<std::string> framed;
   framed.push_back(std::string(w + 4, '*'));
   for (std::vector<std::string>::const_iterator it = picture.begin();
-      it < picture.end(); ++it) {
+       it < picture.end(); ++it) {
     framed.push_back("* " + *it + std::string(w - it->size(), ' ') + " *");
   }
   framed.push_back(framed[0]);
@@ -75,10 +64,8 @@ std::vector<std::string> frame(std::vector<std::string> picture) {
   return framed;
 }
 
-std::vector<std::string> hcat(
-  std::vector<std::string> left,
-  std::vector<std::string> right
-) {
+std::vector<std::string> hcat(std::vector<std::string> left,
+                              std::vector<std::string> right) {
   std::string::size_type left_width = width(left);
 
   std::vector<std::string> picture;
@@ -103,10 +90,8 @@ std::vector<std::string> hcat(
   return picture;
 }
 
-std::vector<std::string> vcat(
-  std::vector<std::string> top,
-  std::vector<std::string> bottom
-) {
+std::vector<std::string> vcat(std::vector<std::string> top,
+                              std::vector<std::string> bottom) {
   std::vector<std::string> picture = top;
   picture.insert(picture.end(), bottom.begin(), bottom.end());
   return picture;

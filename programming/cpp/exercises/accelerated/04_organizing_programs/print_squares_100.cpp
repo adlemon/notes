@@ -11,11 +11,8 @@ int main() {
   const int i_max = 100;
 
   for (int i = i_min; i <= i_max; i++) {
-    std::cout << std::setw(3) << i << ' '
-              << std::setw(5) << square(i) << '\n';
+    std::cout << std::setw(3) << i << ' ' << std::setw(5) << square(i) << '\n';
   }
 }
 
-int square(int i) {
-  return i * i;
-}
+int square(int i) { return i * i; }

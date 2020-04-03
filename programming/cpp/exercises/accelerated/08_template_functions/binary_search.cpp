@@ -8,7 +8,7 @@
 #include <vector>
 
 template <class IteratorType, class ValueType>
-bool binary_search(IteratorType begin, IteratorType end, const ValueType& x) {
+bool binary_search(IteratorType begin, IteratorType end, const ValueType &x) {
   while (begin < end) {
     IteratorType mid = begin + (end - begin) / 2;
     if (x == *mid) {
@@ -27,11 +27,8 @@ int main() {
   {
     std::vector<int> v;
     std::cout << "Enter some integers in ascending order: ";
-    std::copy(
-      std::istream_iterator<int>(std::cin),
-      std::istream_iterator<int>(),
-      std::back_inserter(v)
-    );
+    std::copy(std::istream_iterator<int>(std::cin),
+              std::istream_iterator<int>(), std::back_inserter(v));
     std::cin.clear();
 
     int x;

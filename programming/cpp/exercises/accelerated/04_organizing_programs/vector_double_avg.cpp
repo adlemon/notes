@@ -15,8 +15,7 @@ int main() {
   }
 
   std::cout << '\n'
-            << "The average of the values that were entered is: "
-            << average(v)
+            << "The average of the values that were entered is: " << average(v)
             << '\n';
 }
 

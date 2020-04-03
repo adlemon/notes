@@ -14,20 +14,16 @@ struct StudentInfo {
   std::vector<double> homeworks;
 };
 
-std::istream& read(std::istream& in, StudentInfo& student);
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-);
+std::istream &read(std::istream &in, StudentInfo &student);
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg);
 double median(std::vector<double> v);
-double course_grade(const StudentInfo& student);
-bool is_passing(const StudentInfo& student);
-bool is_failing(const StudentInfo& student);
-std::vector<StudentInfo> extract_failing_students(
-  std::vector<StudentInfo>& students
-);
-void print(const std::vector<StudentInfo>& students);
+double course_grade(const StudentInfo &student);
+bool is_passing(const StudentInfo &student);
+bool is_failing(const StudentInfo &student);
+std::vector<StudentInfo>
+extract_failing_students(std::vector<StudentInfo> &students);
+void print(const std::vector<StudentInfo> &students);
 
 int main() {
   std::vector<StudentInfo> students;
@@ -39,9 +35,8 @@ int main() {
   }
   std::cout << '\n';
 
-  std::vector<StudentInfo> failing_students = extract_failing_students(
-    students
-  );
+  std::vector<StudentInfo> failing_students =
+      extract_failing_students(students);
 
   if (students.empty()) {
     std::cout << "\nThere are no passing students.\n";
@@ -58,7 +53,7 @@ int main() {
   }
 }
 
-std::istream& read(std::istream& in, StudentInfo& student) {
+std::istream &read(std::istream &in, StudentInfo &student) {
   std::cout << "Enter the name of the student: ";
   in >> student.name;
 
@@ -84,11 +79,8 @@ std::istream& read(std::istream& in, StudentInfo& student) {
   return in;
 }
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-) {
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg) {
   return 0.2 * midterm_exam + 0.4 * final_exam + 0.4 * homework_avg;
 }
 
@@ -97,52 +89,35 @@ double median(std::vector<double> v) {
 
   std::vector<double>::size_type n = v.size();
   std::vector<double>::size_type m = n / 2;
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }
 
-double course_grade(const StudentInfo& student) {
-  return course_grade(
-    student.midterm_exam,
-    student.final_exam,
-    median(student.homeworks)
-  );
+double course_grade(const StudentInfo &student) {
+  return course_grade(student.midterm_exam, student.final_exam,
+                      median(student.homeworks));
 }
 
-
-bool is_passing(const StudentInfo& student) {
+bool is_passing(const StudentInfo &student) {
   return course_grade(student) >= 60;
 }
 
-bool is_failing(const StudentInfo& student) {
-  return !is_passing(student);
-}
+bool is_failing(const StudentInfo &student) { return !is_passing(student); }
 
-std::vector<StudentInfo> extract_failing_students(
-  std::vector<StudentInfo>& students
-) {
+std::vector<StudentInfo>
+extract_failing_students(std::vector<StudentInfo> &students) {
   std::vector<StudentInfo> failing_students;
-  std::remove_copy_if(
-    students.begin(),
-    students.end(),
-    std::back_inserter(failing_students),
-    is_passing
-  );
+  std::remove_copy_if(students.begin(), students.end(),
+                      std::back_inserter(failing_students), is_passing);
 
-  students.erase(
-    std::remove_if(
-      students.begin(),
-      students.end(),
-      is_failing
-    ),
-    students.end()
-  );
+  students.erase(std::remove_if(students.begin(), students.end(), is_failing),
+                 students.end());
 
   return failing_students;
 }
 
-void print(const std::vector<StudentInfo>& students) {
+void print(const std::vector<StudentInfo> &students) {
   for (std::vector<StudentInfo>::const_iterator it = students.begin();
-      it != students.end(); ++it) {
+       it != students.end(); ++it) {
     std::cout << it->name << '\n';
   }
 }

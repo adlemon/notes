@@ -7,7 +7,7 @@
 #include <vector>
 
 template <class IteratorType, class ValueType>
-ValueType find(IteratorType b, IteratorType e, const ValueType& x) {
+ValueType find(IteratorType b, IteratorType e, const ValueType &x) {
   while (b != e && *b != x) {
     ++b;
   }
@@ -17,11 +17,8 @@ ValueType find(IteratorType b, IteratorType e, const ValueType& x) {
 int main() {
   std::vector<int> v;
   std::cout << "Enter a collection of integers: ";
-  std::copy(
-    std::istream_iterator<int>(std::cin),
-    std::istream_iterator<int>(),
-    std::back_inserter(v)
-  );
+  std::copy(std::istream_iterator<int>(std::cin), std::istream_iterator<int>(),
+            std::back_inserter(v));
   std::cin.clear();
 
   int x;
@@ -36,11 +33,8 @@ int main() {
 
   std::list<double> w;
   std::cout << "\nEnter a collection of doubles: ";
-  std::copy(
-    std::istream_iterator<double>(std::cin),
-    std::istream_iterator<double>(),
-    std::back_inserter(w)
-  );
+  std::copy(std::istream_iterator<double>(std::cin),
+            std::istream_iterator<double>(), std::back_inserter(w));
   std::cin.clear();
 
   int y;

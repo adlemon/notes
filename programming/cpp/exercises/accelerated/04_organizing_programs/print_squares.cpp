@@ -19,14 +19,12 @@ int main() {
   const int square_width = std::max(width(square(i_min)), width(square(i_max)));
 
   for (int i = i_min; i <= i_max; i += 1) {
-    std::cout << std::setw(i_width) << i << ' '
-              << std::setw(square_width) << square(i) << '\n';
+    std::cout << std::setw(i_width) << i << ' ' << std::setw(square_width)
+              << square(i) << '\n';
   }
 }
 
-int square(int i) {
-  return i * i;
-}
+int square(int i) { return i * i; }
 
 int width(int i) {
   if (i < 0) {

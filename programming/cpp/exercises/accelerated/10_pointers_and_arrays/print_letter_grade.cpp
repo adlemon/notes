@@ -12,17 +12,15 @@ int main() {
   std::cout << "Enter the numerical grade: ";
   std::cin >> grade;
 
-  std::cout << "\nThe corresponding letter grade is: "
-            << letter_grade(grade) << "\n";
+  std::cout << "\nThe corresponding letter grade is: " << letter_grade(grade)
+            << "\n";
 }
 
 std::string letter_grade(double grade) {
-  static const double grade_cutoffs[] = {
-    97, 94, 90, 87, 84, 80, 77, 74, 70, 60, 0
-  };
-  static const char* const letter_grades[] = {
-    "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"
-  };
+  static const double grade_cutoffs[] = {97, 94, 90, 87, 84, 80,
+                                         77, 74, 70, 60, 0};
+  static const char *const letter_grades[] = {"A+", "A", "A-", "B+", "B", "B-",
+                                              "C+", "C", "C-", "D",  "F"};
   static const size_t n_grades = sizeof(grade_cutoffs) / sizeof(*grade_cutoffs);
 
   for (size_t i = 0; i < n_grades; ++i) {

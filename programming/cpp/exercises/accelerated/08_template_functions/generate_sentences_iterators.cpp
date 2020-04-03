@@ -17,14 +17,13 @@ typedef std::list<Token> TokenList;
 typedef std::vector<TokenList> TokenLists;
 typedef std::map<Token, TokenLists> Grammar;
 
-bool is_symbol(const Token& t);
-bool is_literal(const Token& t);
-TokenList tokenize(const std::string& s);
-Grammar read_grammar(std::istream& in);
+bool is_symbol(const Token &t);
+bool is_literal(const Token &t);
+TokenList tokenize(const std::string &s);
+Grammar read_grammar(std::istream &in);
 int nrand(int n);
 
-template <class T>
-void output_sentence(const Grammar& g, T out);
+template <class T> void output_sentence(const Grammar &g, T out);
 
 int main() {
   Grammar g = read_grammar(std::cin);
@@ -45,26 +44,21 @@ int main() {
   std::cout << "\n";
   int i = 1;
   for (TokenLists::const_iterator it = token_lists.begin();
-      it != token_lists.end(); ++i, ++it) {
+       it != token_lists.end(); ++i, ++it) {
     std::cout << "(" << i << ") ";
-    std::copy(
-      it->begin(),
-      it->end(),
-      std::ostream_iterator<Token>(std::cout, " ")
-    );
+    std::copy(it->begin(), it->end(),
+              std::ostream_iterator<Token>(std::cout, " "));
     std::cout << "\n";
   }
 }
 
-bool is_symbol(const Token& t) {
+bool is_symbol(const Token &t) {
   return !t.empty() && t[0] == '<' && t[t.size() - 1] == '>';
 }
 
-bool is_literal(const Token& t) {
-  return !is_symbol(t);
-}
+bool is_literal(const Token &t) { return !is_symbol(t); }
 
-TokenList tokenize(const std::string& s) {
+TokenList tokenize(const std::string &s) {
   TokenList tokens;
 
   std::string::const_iterator it = s.begin();
@@ -80,7 +74,7 @@ TokenList tokenize(const std::string& s) {
   return tokens;
 }
 
-Grammar read_grammar(std::istream& in) {
+Grammar read_grammar(std::istream &in) {
   Grammar g;
 
   std::string line;
@@ -108,8 +102,7 @@ int nrand(int n) {
   return r;
 }
 
-template <class T>
-void output_sentence(const Grammar& g, T out) {
+template <class T> void output_sentence(const Grammar &g, T out) {
   TokenList tokens;
   tokens.push_back("<sentence>");
 
@@ -125,10 +118,11 @@ void output_sentence(const Grammar& g, T out) {
         throw std::logic_error("unknown token: " + token);
       }
 
-      TokenList expansion = expansions->second[nrand(expansions->second.size())];
+      TokenList expansion =
+          expansions->second[nrand(expansions->second.size())];
 
       for (TokenList::const_reverse_iterator it = expansion.rbegin();
-          it != expansion.rend(); ++it) {
+           it != expansion.rend(); ++it) {
         tokens.push_back(*it);
       }
     }

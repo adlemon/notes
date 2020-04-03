@@ -14,12 +14,10 @@ typedef std::vector<int> LineNumbers;
 typedef std::string Word;
 typedef std::map<Word, LineNumbers> Index;
 
-std::vector<Word> split_words(const std::string& s);
-Index index_input(
-  std::istream& in,
-  std::vector<Word> tokenize(const std::string& s) = split_words
-);
-std::ostream& print(std::ostream& out, const Index& idx);
+std::vector<Word> split_words(const std::string &s);
+Index index_input(std::istream &in, std::vector<Word> tokenize(
+                                        const std::string &s) = split_words);
+std::ostream &print(std::ostream &out, const Index &idx);
 
 int main() {
   std::cout << "Enter the corpus to index:\n";
@@ -30,7 +28,7 @@ int main() {
   print(std::cout, idx);
 }
 
-std::vector<Word> split_words(const std::string& s) {
+std::vector<Word> split_words(const std::string &s) {
   std::vector<Word> words;
 
   std::string::const_iterator it = s.begin();
@@ -53,10 +51,8 @@ std::vector<Word> split_words(const std::string& s) {
   return words;
 }
 
-Index index_input(
-  std::istream& in,
-  std::vector<Word> tokenize(const std::string& s)
-) {
+Index index_input(std::istream &in,
+                  std::vector<Word> tokenize(const std::string &s)) {
   Index idx;
 
   int line_number = 0;
@@ -66,10 +62,10 @@ Index index_input(
 
     std::vector<Word> tokens = tokenize(line);
     for (std::vector<Word>::const_iterator it = tokens.begin();
-        it != tokens.end(); ++it) {
-      LineNumbers& token_line_numbers = idx[*it];
-      if (token_line_numbers.empty()
-          || token_line_numbers[token_line_numbers.size() - 1] != line_number) {
+         it != tokens.end(); ++it) {
+      LineNumbers &token_line_numbers = idx[*it];
+      if (token_line_numbers.empty() ||
+          token_line_numbers[token_line_numbers.size() - 1] != line_number) {
         token_line_numbers.push_back(line_number);
       }
     }
@@ -78,11 +74,11 @@ Index index_input(
   return idx;
 }
 
-std::ostream& print(std::ostream& out, const Index& idx) {
+std::ostream &print(std::ostream &out, const Index &idx) {
   for (Index::const_iterator it = idx.begin(); it != idx.end(); ++it) {
     out << it->first << ": ";
     for (LineNumbers::const_iterator jt = it->second.begin();
-        jt != it->second.end(); ++jt) {
+         jt != it->second.end(); ++jt) {
       if (jt != it->second.begin()) {
         out << ", ";
       }

@@ -9,38 +9,31 @@
 #include <string>
 #include <vector>
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-);
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg);
 
-template <class T>
-T median(std::vector<T> v);
+template <class T> T median(std::vector<T> v);
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  std::vector<double> homeworks
-);
+double course_grade(double midterm_exam, double final_exam,
+                    std::vector<double> homeworks);
 
 class StudentCourseGrade {
-  public:
-    StudentCourseGrade(): midterm_exam_(0), final_exam_(0) {};
-    std::istream& read(std::istream& in);
-    StudentCourseGrade(std::istream& in) { read(in); }
+public:
+  StudentCourseGrade() : midterm_exam_(0), final_exam_(0){};
+  std::istream &read(std::istream &in);
+  StudentCourseGrade(std::istream &in) { read(in); }
 
-    bool is_valid() const { return !homeworks_.empty(); }
-    const std::string& name() const { return name_; }
-    double course_grade() const;
+  bool is_valid() const { return !homeworks_.empty(); }
+  const std::string &name() const { return name_; }
+  double course_grade() const;
 
-  private:
-    std::string name_;
-    double midterm_exam_, final_exam_;
-    std::vector<double> homeworks_;
+private:
+  std::string name_;
+  double midterm_exam_, final_exam_;
+  std::vector<double> homeworks_;
 };
 
-bool compare(const StudentCourseGrade& s1, const StudentCourseGrade& s2);
+bool compare(const StudentCourseGrade &s1, const StudentCourseGrade &s2);
 
 int main() {
   std::vector<StudentCourseGrade> students;
@@ -57,7 +50,7 @@ int main() {
   std::sort(students.begin(), students.end(), compare);
 
   for (std::vector<StudentCourseGrade>::const_iterator it = students.begin();
-      it != students.end(); ++it) {
+       it != students.end(); ++it) {
     if (it->is_valid()) {
       double student_course_grade = it->course_grade();
       std::streamsize prec = std::cout.precision();
@@ -71,16 +64,12 @@ int main() {
   }
 }
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-) {
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg) {
   return 0.2 * midterm_exam + 0.4 * final_exam + 0.4 * homework_avg;
 }
 
-template <class T>
-T median(std::vector<T> v) {
+template <class T> T median(std::vector<T> v) {
   if (v.empty()) {
     throw std::domain_error("median of empty vector");
   }
@@ -90,18 +79,15 @@ T median(std::vector<T> v) {
   typename std::vector<T>::size_type n = v.size();
   typename std::vector<T>::size_type m = n / 2;
 
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  std::vector<double> homeworks
-  ) {
+double course_grade(double midterm_exam, double final_exam,
+                    std::vector<double> homeworks) {
   return course_grade(midterm_exam, final_exam, median(homeworks));
 }
 
-std::istream& StudentCourseGrade::read(std::istream& in) {
+std::istream &StudentCourseGrade::read(std::istream &in) {
   std::cout << "Enter the name of the student: ";
   if (!(in >> name_)) {
     return in;
@@ -129,6 +115,6 @@ double StudentCourseGrade::course_grade() const {
   return ::course_grade(midterm_exam_, final_exam_, homeworks_);
 }
 
-bool compare(const StudentCourseGrade& s1, const StudentCourseGrade& s2) {
+bool compare(const StudentCourseGrade &s1, const StudentCourseGrade &s2) {
   return s1.name() < s2.name();
 }

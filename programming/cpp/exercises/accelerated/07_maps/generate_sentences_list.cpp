@@ -18,18 +18,15 @@ typedef std::vector<Expansion> Expansions;
 typedef std::map<Token, Expansions> Grammar;
 typedef std::list<Token> Sentence;
 
-Expansion tokenize(const std::string& s);
-Grammar read_grammar(std::istream& in);
-Sentence generate_sentence(const Grammar& grammar);
-bool is_symbol(const Token& token);
-bool is_literal(const Token& token);
+Expansion tokenize(const std::string &s);
+Grammar read_grammar(std::istream &in);
+Sentence generate_sentence(const Grammar &grammar);
+bool is_symbol(const Token &token);
+bool is_literal(const Token &token);
 int nrand(int n);
-void expand_token(
-  const Grammar& grammar,
-  const Token& token,
-  Sentence& sentence
-);
-std::ostream& print(std::ostream& out, const Sentence& sentence);
+void expand_token(const Grammar &grammar, const Token &token,
+                  Sentence &sentence);
+std::ostream &print(std::ostream &out, const Sentence &sentence);
 
 int main() {
   const Grammar grammar = read_grammar(std::cin);
@@ -44,7 +41,7 @@ int main() {
   }
 }
 
-Expansion tokenize(const std::string& s) {
+Expansion tokenize(const std::string &s) {
   Expansion tokens;
 
   std::string::const_iterator it = s.begin();
@@ -67,7 +64,7 @@ Expansion tokenize(const std::string& s) {
   return tokens;
 }
 
-Grammar read_grammar(std::istream& in) {
+Grammar read_grammar(std::istream &in) {
   Grammar grammar;
 
   std::string line;
@@ -76,21 +73,20 @@ Grammar read_grammar(std::istream& in) {
 
     if (!tokens.empty()) {
       grammar[*tokens.begin()].push_back(
-        Expansion(tokens.begin() + 1, tokens.end())
-      );
+          Expansion(tokens.begin() + 1, tokens.end()));
     }
   }
 
   return grammar;
 }
 
-Sentence generate_sentence(const Grammar& grammar) {
+Sentence generate_sentence(const Grammar &grammar) {
   Sentence sentence;
   expand_token(grammar, "<sentence>", sentence);
   return sentence;
 }
 
-bool is_symbol(const Token& token) {
+bool is_symbol(const Token &token) {
   if (token.empty()) {
     return false;
   }
@@ -98,9 +94,7 @@ bool is_symbol(const Token& token) {
   return token[0] == '<' && token[token.size() - 1] == '>';
 }
 
-bool is_literal(const Token& token) {
-  return !is_symbol(token);
-}
+bool is_literal(const Token &token) { return !is_symbol(token); }
 
 int nrand(int n) {
   int bucket_size = RAND_MAX / n;
@@ -113,11 +107,8 @@ int nrand(int n) {
   return r;
 }
 
-void expand_token(
-  const Grammar& grammar,
-  const Token& token,
-  Sentence& sentence
-) {
+void expand_token(const Grammar &grammar, const Token &token,
+                  Sentence &sentence) {
   if (is_literal(token)) {
     sentence.push_back(token);
     return;
@@ -128,18 +119,18 @@ void expand_token(
     throw std::logic_error("invalid token: " + token);
   }
 
-  const Expansions& expansions = it->second;
-  const Expansion& expansion = expansions[nrand(expansions.size())];
+  const Expansions &expansions = it->second;
+  const Expansion &expansion = expansions[nrand(expansions.size())];
 
   for (Expansion::const_iterator token = expansion.begin();
-      token != expansion.end(); ++token) {
+       token != expansion.end(); ++token) {
     expand_token(grammar, *token, sentence);
   }
 }
 
-std::ostream& print(std::ostream& out, const Sentence& sentence) {
-  for (Sentence::const_iterator it = sentence.begin();
-      it != sentence.end(); ++it) {
+std::ostream &print(std::ostream &out, const Sentence &sentence) {
+  for (Sentence::const_iterator it = sentence.begin(); it != sentence.end();
+       ++it) {
     if (it != sentence.begin()) {
       out << ' ';
     }

@@ -14,20 +14,14 @@ struct StudentInfo {
 
 double median(std::vector<double> v);
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-);
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  std::vector<double> homeworks
-);
-std::istream& ReadStudentInfo(std::istream& in, StudentInfo& student);
-void ReadStudentInfos(std::vector<StudentInfo>& students);
-bool compare(const StudentInfo& s1, const StudentInfo& s2);
-void PrintStudentInfos(const std::vector<StudentInfo>& students);
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg);
+double course_grade(double midterm_exam, double final_exam,
+                    std::vector<double> homeworks);
+std::istream &ReadStudentInfo(std::istream &in, StudentInfo &student);
+void ReadStudentInfos(std::vector<StudentInfo> &students);
+bool compare(const StudentInfo &s1, const StudentInfo &s2);
+void PrintStudentInfos(const std::vector<StudentInfo> &students);
 
 int main() {
   std::vector<StudentInfo> students;
@@ -45,26 +39,20 @@ double median(std::vector<double> v) {
   std::vector<double>::size_type n = v.size();
   std::vector<double>::size_type m = n / 2;
 
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  double homework_avg
-) {
+double course_grade(double midterm_exam, double final_exam,
+                    double homework_avg) {
   return 0.2 * midterm_exam + 0.4 * final_exam + 0.4 * homework_avg;
 }
 
-double course_grade(
-  double midterm_exam,
-  double final_exam,
-  std::vector<double> homeworks
-  ) {
+double course_grade(double midterm_exam, double final_exam,
+                    std::vector<double> homeworks) {
   return course_grade(midterm_exam, final_exam, median(homeworks));
 }
 
-std::istream& ReadStudentInfo(std::istream& in, StudentInfo& student) {
+std::istream &ReadStudentInfo(std::istream &in, StudentInfo &student) {
   if (!in) {
     return in;
   }
@@ -95,18 +83,18 @@ std::istream& ReadStudentInfo(std::istream& in, StudentInfo& student) {
   return in;
 }
 
-void ReadStudentInfos(std::vector<StudentInfo>& students) {
+void ReadStudentInfos(std::vector<StudentInfo> &students) {
   StudentInfo student;
   while (ReadStudentInfo(std::cin, student)) {
     students.push_back(student);
   }
 }
 
-bool compare(const StudentInfo& s1, const StudentInfo& s2) {
+bool compare(const StudentInfo &s1, const StudentInfo &s2) {
   return s1.name < s2.name;
 }
 
-void PrintStudentInfos(const std::vector<StudentInfo>& students) {
+void PrintStudentInfos(const std::vector<StudentInfo> &students) {
   std::string::size_type max_name_length = 0;
   for (std::vector<StudentInfo>::size_type i = 0; i < students.size(); i++) {
     max_name_length = std::max(students[i].name.size(), max_name_length);

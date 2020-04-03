@@ -11,7 +11,7 @@
 #include <vector>
 
 template <class IteratorType>
-void split(const std::string& s, IteratorType out) {
+void split(const std::string &s, IteratorType out) {
   std::string::const_iterator it = s.begin();
   while (it != s.end()) {
     it = std::find_if_not(it, s.end(), isspace);
@@ -32,20 +32,14 @@ int main() {
   std::vector<std::string> v;
   split(s, std::back_inserter(v));
   std::cout << "\nThe vector of words is: ";
-  std::copy(
-    v.begin(),
-    v.end(),
-    std::ostream_iterator<std::string>(std::cout, " ")
-  );
+  std::copy(v.begin(), v.end(),
+            std::ostream_iterator<std::string>(std::cout, " "));
   std::cout << "\n";
 
   std::list<std::string> lst;
   split(s, std::back_inserter(lst));
   std::cout << "\nThe list of words is: ";
-  std::copy(
-    lst.begin(),
-    lst.end(),
-    std::ostream_iterator<std::string>(std::cout, " ")
-  );
+  std::copy(lst.begin(), lst.end(),
+            std::ostream_iterator<std::string>(std::cout, " "));
   std::cout << "\n";
 }

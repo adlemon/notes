@@ -7,16 +7,15 @@
 #include <string>
 #include <vector>
 
-typedef std::map<std::string, std::vector<int> > IndexType;
+typedef std::map<std::string, std::vector<int>> IndexType;
 
-std::vector<std::string> split_words(const std::string& s);
+std::vector<std::string> split_words(const std::string &s);
 
 IndexType build_index(
-  std::istream& in,
-  std::vector<std::string> tokenize(const std::string& line) = split_words
-);
+    std::istream &in,
+    std::vector<std::string> tokenize(const std::string &line) = split_words);
 
-std::ostream& print(std::ostream& out, const IndexType& idx);
+std::ostream &print(std::ostream &out, const IndexType &idx);
 
 int main() {
   std::cout << "Enter the corpus:\n";
@@ -26,7 +25,7 @@ int main() {
   print(std::cout, idx);
 }
 
-std::vector<std::string> split_words(const std::string& s) {
+std::vector<std::string> split_words(const std::string &s) {
   std::vector<std::string> words;
 
   std::string::const_iterator it = s.begin();
@@ -49,10 +48,9 @@ std::vector<std::string> split_words(const std::string& s) {
   return words;
 }
 
-IndexType build_index(
-  std::istream& in,
-  std::vector<std::string> tokenize(const std::string& line)
-) {
+IndexType
+build_index(std::istream &in,
+            std::vector<std::string> tokenize(const std::string &line)) {
   IndexType idx;
 
   int line_number = 0;
@@ -62,7 +60,7 @@ IndexType build_index(
 
     std::vector<std::string> tokens = tokenize(line);
     for (std::vector<std::string>::const_iterator token = tokens.begin();
-        token != tokens.end(); ++token) {
+         token != tokens.end(); ++token) {
       idx[*token].push_back(line_number);
     }
   }
@@ -70,11 +68,11 @@ IndexType build_index(
   return idx;
 }
 
-std::ostream& print(std::ostream& out, const IndexType& idx) {
+std::ostream &print(std::ostream &out, const IndexType &idx) {
   for (IndexType::const_iterator it = idx.begin(); it != idx.end(); ++it) {
     out << it->first << ": ";
     for (std::vector<int>::const_iterator jt = it->second.begin();
-        jt != it->second.end(); ++jt) {
+         jt != it->second.end(); ++jt) {
       if (jt != it->second.begin()) {
         out << ", ";
       }

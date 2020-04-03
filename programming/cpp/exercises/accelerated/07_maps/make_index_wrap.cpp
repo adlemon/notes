@@ -14,14 +14,13 @@
 
 const int NUM_LINE_NUMBERS_PER_INDEX_LINE = 3;
 
-typedef std::map<std::string, std::vector<int> > IndexType;
+typedef std::map<std::string, std::vector<int>> IndexType;
 
-std::vector<std::string> split_words(const std::string& s);
+std::vector<std::string> split_words(const std::string &s);
 IndexType index_input(
-  std::istream& in,
-  std::vector<std::string> tokenize(const std::string& s) = split_words
-);
-std::ostream& print(std::ostream& out, const IndexType& idx);
+    std::istream &in,
+    std::vector<std::string> tokenize(const std::string &s) = split_words);
+std::ostream &print(std::ostream &out, const IndexType &idx);
 
 int main() {
   std::cout << "Enter the corpus:\n";
@@ -31,7 +30,7 @@ int main() {
   print(std::cout, idx);
 }
 
-std::vector<std::string> split_words(const std::string& s) {
+std::vector<std::string> split_words(const std::string &s) {
   std::vector<std::string> words;
 
   std::string::const_iterator it = s.begin();
@@ -54,10 +53,8 @@ std::vector<std::string> split_words(const std::string& s) {
   return words;
 }
 
-IndexType index_input(
-  std::istream& in,
-  std::vector<std::string> tokenize(const std::string& s)
-) {
+IndexType index_input(std::istream &in,
+                      std::vector<std::string> tokenize(const std::string &s)) {
   IndexType idx;
 
   int line_number = 0;
@@ -67,10 +64,10 @@ IndexType index_input(
 
     std::vector<std::string> tokens = tokenize(line);
     for (std::vector<std::string>::const_iterator it = tokens.begin();
-        it != tokens.end(); ++it) {
-      std::vector<int>& token_line_numbers = idx[*it];
-      if (token_line_numbers.empty()
-          || token_line_numbers[token_line_numbers.size() - 1] != line_number) {
+         it != tokens.end(); ++it) {
+      std::vector<int> &token_line_numbers = idx[*it];
+      if (token_line_numbers.empty() ||
+          token_line_numbers[token_line_numbers.size() - 1] != line_number) {
         token_line_numbers.push_back(line_number);
       }
     }
@@ -79,14 +76,13 @@ IndexType index_input(
   return idx;
 }
 
-std::ostream& print(std::ostream& out, const IndexType& idx) {
-  for (IndexType::const_iterator it = idx.begin();
-      it != idx.end(); ++it) {
+std::ostream &print(std::ostream &out, const IndexType &idx) {
+  for (IndexType::const_iterator it = idx.begin(); it != idx.end(); ++it) {
     out << it->first << ": ";
 
     int line_number_count = 0;
     for (std::vector<int>::const_iterator jt = it->second.begin();
-        jt != it->second.end(); ++jt) {
+         jt != it->second.end(); ++jt) {
       if (jt != it->second.begin()) {
         if ((line_number_count % 3) == 0) {
           out << ",\n" << std::string(it->first.size() + 2, ' ');

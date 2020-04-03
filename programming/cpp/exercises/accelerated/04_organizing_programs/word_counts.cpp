@@ -14,17 +14,13 @@ struct WordCount {
   int count;
 };
 
-void ReadWords(std::vector<std::string>& words);
-void CountWords(
-  std::vector<std::string>& words,
-  std::vector<WordCount>& word_counts,
-  std::string::size_type& max_word_length
-);
-void PrintStatistics(
-  const std::vector<std::string>& words,
-  const std::vector<WordCount>& word_counts,
-  const int& max_word_length
-);
+void ReadWords(std::vector<std::string> &words);
+void CountWords(std::vector<std::string> &words,
+                std::vector<WordCount> &word_counts,
+                std::string::size_type &max_word_length);
+void PrintStatistics(const std::vector<std::string> &words,
+                     const std::vector<WordCount> &word_counts,
+                     const int &max_word_length);
 
 int main() {
   std::vector<std::string> words;
@@ -38,7 +34,7 @@ int main() {
   PrintStatistics(words, word_counts, max_word_length);
 }
 
-void ReadWords(std::vector<std::string>& words) {
+void ReadWords(std::vector<std::string> &words) {
   std::string word;
   std::cout << "Enter the next word or end-of-file if done: ";
   while (std::cin >> word) {
@@ -47,11 +43,9 @@ void ReadWords(std::vector<std::string>& words) {
   }
 }
 
-void CountWords(
-  std::vector<std::string>& words,
-  std::vector<WordCount>& word_counts,
-  std::string::size_type& max_word_length
-) {
+void CountWords(std::vector<std::string> &words,
+                std::vector<WordCount> &word_counts,
+                std::string::size_type &max_word_length) {
   std::sort(words.begin(), words.end());
 
   max_word_length = 0;
@@ -73,11 +67,9 @@ void CountWords(
   }
 }
 
-void PrintStatistics(
-  const std::vector<std::string>& words,
-  const std::vector<WordCount>& word_counts,
-  const int& max_word_length
-) {
+void PrintStatistics(const std::vector<std::string> &words,
+                     const std::vector<WordCount> &word_counts,
+                     const int &max_word_length) {
   std::cout << "Number of words read: " << words.size() << '\n'
             << "Number of unique words read: " << word_counts.size() << '\n';
   for (std::vector<WordCount>::size_type i = 0; i < word_counts.size(); i++) {

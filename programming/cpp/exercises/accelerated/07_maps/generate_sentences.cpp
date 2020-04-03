@@ -13,21 +13,16 @@ typedef std::vector<std::string> GrammarRule;
 typedef std::vector<GrammarRule> GrammarRules;
 typedef std::map<std::string, GrammarRules> Grammar;
 
-std::vector<std::string> tokenize(const std::string& s);
-Grammar read_grammar(std::istream& in);
-std::vector<std::string> generate_sentence(const Grammar& g);
-bool is_symbol(const std::string& s);
-bool is_literal(const std::string& s);
+std::vector<std::string> tokenize(const std::string &s);
+Grammar read_grammar(std::istream &in);
+std::vector<std::string> generate_sentence(const Grammar &g);
+bool is_symbol(const std::string &s);
+bool is_literal(const std::string &s);
 int nrand(int n);
-void generate_token(
-  const Grammar& g,
-  const std::string& token,
-  std::vector<std::string>& sentence
-);
-std::ostream& print(
-  std::ostream& out,
-  const std::vector<std::string>& sentence
-);
+void generate_token(const Grammar &g, const std::string &token,
+                    std::vector<std::string> &sentence);
+std::ostream &print(std::ostream &out,
+                    const std::vector<std::string> &sentence);
 
 int main() {
   const Grammar g = read_grammar(std::cin);
@@ -42,7 +37,7 @@ int main() {
   }
 }
 
-std::vector<std::string> tokenize(const std::string& s) {
+std::vector<std::string> tokenize(const std::string &s) {
   std::vector<std::string> v;
 
   std::string::const_iterator it = s.begin();
@@ -65,7 +60,7 @@ std::vector<std::string> tokenize(const std::string& s) {
   return v;
 }
 
-Grammar read_grammar(std::istream& in) {
+Grammar read_grammar(std::istream &in) {
   Grammar g;
 
   std::string line;
@@ -73,16 +68,14 @@ Grammar read_grammar(std::istream& in) {
     std::vector<std::string> tokens = tokenize(line);
 
     if (!tokens.empty()) {
-      g[tokens[0]].push_back(
-        GrammarRule(tokens.begin() + 1, tokens.end())
-      );
+      g[tokens[0]].push_back(GrammarRule(tokens.begin() + 1, tokens.end()));
     }
   }
 
   return g;
 }
 
-std::vector<std::string> generate_sentence(const Grammar& g) {
+std::vector<std::string> generate_sentence(const Grammar &g) {
   std::vector<std::string> sentence;
 
   generate_token(g, "<sentence>", sentence);
@@ -90,13 +83,11 @@ std::vector<std::string> generate_sentence(const Grammar& g) {
   return sentence;
 }
 
-bool is_symbol(const std::string& s) {
+bool is_symbol(const std::string &s) {
   return s.size() > 1 && s[0] == '<' && s[s.size() - 1] == '>';
 }
 
-bool is_literal(const std::string& s) {
-  return !is_symbol(s);
-}
+bool is_literal(const std::string &s) { return !is_symbol(s); }
 
 int nrand(int n) {
   if (n <= 0 || n > RAND_MAX) {
@@ -113,11 +104,8 @@ int nrand(int n) {
   return r;
 }
 
-void generate_token(
-  const Grammar& g,
-  const std::string& token,
-  std::vector<std::string>& sentence
-) {
+void generate_token(const Grammar &g, const std::string &token,
+                    std::vector<std::string> &sentence) {
   if (is_literal(token)) {
     sentence.push_back(token);
     return;
@@ -132,17 +120,15 @@ void generate_token(
   const GrammarRule grammar_rule = grammar_rules[nrand(grammar_rules.size())];
 
   for (GrammarRule::const_iterator jt = grammar_rule.begin();
-      jt != grammar_rule.end(); ++jt) {
+       jt != grammar_rule.end(); ++jt) {
     generate_token(g, *jt, sentence);
   }
 }
 
-std::ostream& print(
-  std::ostream& out,
-  const std::vector<std::string>& sentence
-) {
+std::ostream &print(std::ostream &out,
+                    const std::vector<std::string> &sentence) {
   for (std::vector<std::string>::const_iterator it = sentence.begin();
-      it != sentence.end(); ++it) {
+       it != sentence.end(); ++it) {
     if (it != sentence.begin()) {
       out << " ";
     }

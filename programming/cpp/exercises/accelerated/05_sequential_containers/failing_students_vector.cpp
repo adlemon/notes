@@ -1,4 +1,5 @@
-e/ failing_students_vector.cpp
+e /
+    failing_students_vector.cpp
 // Divide a vector of students into the passing and failing students.
 
 #include <algorithm>
@@ -6,7 +7,7 @@ e/ failing_students_vector.cpp
 #include <string>
 #include <vector>
 
-struct StudentInfo {
+    struct StudentInfo {
   std::string name;
   double midterm_exam, final_exam;
   std::vector<double> homeworks;
@@ -17,12 +18,12 @@ double course_grade(double midterm_exam, double final_exam,
                     double homework_avg);
 double median(std::vector<double> v);
 double course_grade(double midterm_exam, double final_exam,
-                    const std::vector<double>& homeworks);
-double course_grade(const StudentInfo& student);
-bool is_failing(const StudentInfo& student);
-std::vector<StudentInfo> FilterFailingStudents(
-    std::vector<StudentInfo>& students);
-void PrintStudents(const std::vector<StudentInfo>& students);
+                    const std::vector<double> &homeworks);
+double course_grade(const StudentInfo &student);
+bool is_failing(const StudentInfo &student);
+std::vector<StudentInfo>
+FilterFailingStudents(std::vector<StudentInfo> &students);
+void PrintStudents(const std::vector<StudentInfo> &students);
 
 int main() {
   std::vector<StudentInfo> students = ReadStudents();
@@ -83,25 +84,25 @@ double median(std::vector<double> v) {
 
   std::vector<double>::size_type n = v.size();
   std::vector<double>::size_type m = n / 2;
-  return ((n % 2) == 0) ? (v[m-1] + v[m]) / 2 : v[m];
+  return ((n % 2) == 0) ? (v[m - 1] + v[m]) / 2 : v[m];
 }
 
 double course_grade(double midterm_exam, double final_exam,
-                    const std::vector<double>& homeworks) {
+                    const std::vector<double> &homeworks) {
   return course_grade(midterm_exam, final_exam, median(homeworks));
 }
 
-double course_grade(const StudentInfo& student) {
+double course_grade(const StudentInfo &student) {
   return course_grade(student.midterm_exam, student.final_exam,
                       student.homeworks);
 }
 
-bool is_failing(const StudentInfo& student) {
+bool is_failing(const StudentInfo &student) {
   return course_grade(student) < 60;
 }
 
-std::vector<StudentInfo> FilterFailingStudents(
-    std::vector<StudentInfo>& students) {
+std::vector<StudentInfo>
+FilterFailingStudents(std::vector<StudentInfo> &students) {
   std::vector<StudentInfo> failing_students;
 
   std::vector<StudentInfo>::iterator it = students.begin();
@@ -117,9 +118,9 @@ std::vector<StudentInfo> FilterFailingStudents(
   return failing_students;
 }
 
-void PrintStudents(const std::vector<StudentInfo>& students) {
+void PrintStudents(const std::vector<StudentInfo> &students) {
   for (std::vector<StudentInfo>::const_iterator it = students.begin();
-      it != students.end(); ++it) {
+       it != students.end(); ++it) {
     std::cout << it->name << '\n';
   }
 }

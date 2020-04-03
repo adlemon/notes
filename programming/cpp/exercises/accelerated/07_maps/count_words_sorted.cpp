@@ -35,21 +35,18 @@ int main() {
 
   std::vector<WordCount> word_counts_vector;
   for (std::map<std::string, int>::const_iterator it = word_counts_map.begin();
-      it != word_counts_map.end(); ++it) {
+       it != word_counts_map.end(); ++it) {
     WordCount wc;
     wc.word = it->first;
     wc.count = it->second;
 
     word_counts_vector.push_back(wc);
   }
-  std::sort(
-    word_counts_vector.begin(),
-    word_counts_vector.end(),
-    word_count_less_than
-  );
+  std::sort(word_counts_vector.begin(), word_counts_vector.end(),
+            word_count_less_than);
 
   for (std::vector<WordCount>::const_iterator it = word_counts_vector.begin();
-      it != word_counts_vector.end(); ++it) {
+       it != word_counts_vector.end(); ++it) {
     std::cout << it->word << ": " << it->count << "\n";
   }
 }

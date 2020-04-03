@@ -15,15 +15,13 @@ struct ConcordanceEntry {
 };
 
 std::vector<std::string> ReadPhrases();
-std::vector<std::string> SplitString(const std::string& phrase);
-bool compare(const ConcordanceEntry& ce1, const ConcordanceEntry& ce2);
-std::vector<ConcordanceEntry> ConstructKWIC(
-  const std::vector<std::string>& phrases
-);
-std::vector<ConcordanceEntry>::size_type PrefixWidth(
-  const std::vector<ConcordanceEntry>& concordance
-);
-void PrintConcordance(const std::vector<ConcordanceEntry>& concordance);
+std::vector<std::string> SplitString(const std::string &phrase);
+bool compare(const ConcordanceEntry &ce1, const ConcordanceEntry &ce2);
+std::vector<ConcordanceEntry>
+ConstructKWIC(const std::vector<std::string> &phrases);
+std::vector<ConcordanceEntry>::size_type
+PrefixWidth(const std::vector<ConcordanceEntry> &concordance);
+void PrintConcordance(const std::vector<ConcordanceEntry> &concordance);
 
 int main() {
   std::vector<std::string> phrases = ReadPhrases();
@@ -48,7 +46,7 @@ std::vector<std::string> ReadPhrases() {
   return phrases;
 }
 
-std::vector<std::string> SplitString(const std::string& phrase) {
+std::vector<std::string> SplitString(const std::string &phrase) {
   std::vector<std::string> words;
 
   std::string::size_type i = 0;
@@ -72,7 +70,7 @@ std::vector<std::string> SplitString(const std::string& phrase) {
   return words;
 }
 
-bool compare(const ConcordanceEntry& ce1, const ConcordanceEntry& ce2) {
+bool compare(const ConcordanceEntry &ce1, const ConcordanceEntry &ce2) {
   std::string::size_type i = 0;
   while (i < ce1.index.size() && i < ce2.index.size()) {
     if (tolower(ce1.index[i]) < tolower(ce2.index[i])) {
@@ -89,13 +87,12 @@ bool compare(const ConcordanceEntry& ce1, const ConcordanceEntry& ce2) {
   return false;
 }
 
-std::vector<ConcordanceEntry> ConstructKWIC(
-  const std::vector<std::string>& phrases
-) {
+std::vector<ConcordanceEntry>
+ConstructKWIC(const std::vector<std::string> &phrases) {
   std::vector<ConcordanceEntry> kwic;
 
   for (std::vector<std::string>::const_iterator it = phrases.begin();
-      it != phrases.end(); ++it) {
+       it != phrases.end(); ++it) {
     std::vector<std::string> words = SplitString(*it);
 
     for (std::vector<std::string>::size_type i = 0; i != words.size(); i++) {
@@ -121,26 +118,24 @@ std::vector<ConcordanceEntry> ConstructKWIC(
   return kwic;
 }
 
-std::vector<ConcordanceEntry>::size_type PrefixWidth(
-  const std::vector<ConcordanceEntry>& concordance
-) {
+std::vector<ConcordanceEntry>::size_type
+PrefixWidth(const std::vector<ConcordanceEntry> &concordance) {
   std::vector<ConcordanceEntry>::size_type prefix_width = 0;
 
   for (std::vector<ConcordanceEntry>::const_iterator it = concordance.begin();
-      it != concordance.end(); ++it) {
+       it != concordance.end(); ++it) {
     prefix_width = std::max(it->prefix.size(), prefix_width);
   }
 
   return prefix_width;
 }
 
-void PrintConcordance(const std::vector<ConcordanceEntry>& concordance) {
-  std::vector<ConcordanceEntry>::size_type prefix_width = PrefixWidth(concordance);
+void PrintConcordance(const std::vector<ConcordanceEntry> &concordance) {
+  std::vector<ConcordanceEntry>::size_type prefix_width =
+      PrefixWidth(concordance);
   for (std::vector<ConcordanceEntry>::const_iterator it = concordance.begin();
-      it != concordance.end(); ++it) {
+       it != concordance.end(); ++it) {
     std::cout << std::string(prefix_width - it->prefix.size(), ' ')
-              << it->prefix
-              << std::string(5, ' ')
-              << it->index << '\n';
+              << it->prefix << std::string(5, ' ') << it->index << '\n';
   }
 }

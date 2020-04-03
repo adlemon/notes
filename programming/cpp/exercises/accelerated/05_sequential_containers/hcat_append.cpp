@@ -10,10 +10,10 @@
 typedef std::string picture_line;
 typedef std::vector<picture_line> picture;
 
-picture read_picture(std::istream& in);
-void print_picture(std::ostream&, const picture& p);
-picture_line::size_type picture_width(const picture& p);
-picture hcat_accumulate(const picture& p1, const picture& p2);
+picture read_picture(std::istream &in);
+void print_picture(std::ostream &, const picture &p);
+picture_line::size_type picture_width(const picture &p);
+picture hcat_accumulate(const picture &p1, const picture &p2);
 
 int main() {
   std::cout << "Enter the first picture followed by an end-of-file:\n";
@@ -27,7 +27,7 @@ int main() {
   print_picture(std::cout, hcat_accumulate(p1, p2));
 }
 
-picture read_picture(std::istream& in) {
+picture read_picture(std::istream &in) {
   picture p;
 
   picture_line line;
@@ -39,13 +39,13 @@ picture read_picture(std::istream& in) {
   return p;
 }
 
-void print_picture(std::ostream& out, const picture& p) {
+void print_picture(std::ostream &out, const picture &p) {
   for (picture::const_iterator it = p.begin(); it != p.end(); ++it) {
     out << *it << '\n';
   }
 }
 
-picture_line::size_type picture_width(const picture& p) {
+picture_line::size_type picture_width(const picture &p) {
   picture_line::size_type width = 0;
   for (picture::const_iterator it = p.begin(); it != p.end(); ++it) {
     width = std::max(width, it->size());
@@ -53,7 +53,7 @@ picture_line::size_type picture_width(const picture& p) {
   return width;
 }
 
-picture hcat_accumulate(const picture& p1, const picture& p2) {
+picture hcat_accumulate(const picture &p1, const picture &p2) {
   picture p;
   picture_line line;
   picture_line::size_type width1 = picture_width(p1);

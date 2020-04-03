@@ -24,8 +24,8 @@ int main() {
       double homework_total = 0.0;
       for (int i = 1; i <= NUM_HOMEWORK; i++) {
         double homework_grade;
-        std::cout << "Enter the grade for homework " << i <<
-          " for " << name << ": ";
+        std::cout << "Enter the grade for homework " << i << " for " << name
+                  << ": ";
         std::cin >> homework_grade;
         homework_total += homework_grade;
       }
@@ -37,9 +37,8 @@ int main() {
       std::cout << "Enter the final exam grade for " << name << ": ";
       std::cin >> final_exam;
 
-      double course_grade = 0.4 * final_exam
-        + 0.2 * midterm_exam
-        + 0.4 * homework_mean;
+      double course_grade =
+          0.4 * final_exam + 0.2 * midterm_exam + 0.4 * homework_mean;
       course_grades.push_back(course_grade);
 
       std::cout << std::endl;
@@ -51,8 +50,7 @@ int main() {
   std::cout << "Course Grades:\n";
   for (std::vector<std::string>::size_type i = 0; i < names.size(); i++) {
     std::streamsize prec = std::cout.precision();
-    std::cout << names[i] << ": "
-      << std::setprecision(3) << course_grades[i] << std::setprecision(prec)
-      << "\n";
+    std::cout << names[i] << ": " << std::setprecision(3) << course_grades[i]
+              << std::setprecision(prec) << "\n";
   }
 }

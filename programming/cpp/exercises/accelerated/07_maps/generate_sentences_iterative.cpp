@@ -14,13 +14,13 @@ typedef std::vector<Token> Tokens;
 typedef std::vector<Tokens> Expansions;
 typedef std::map<Token, Expansions> Grammar;
 
-bool is_symbol(const Token& t);
-bool is_literal(const Token& t);
+bool is_symbol(const Token &t);
+bool is_literal(const Token &t);
 Tokens tokenize(std::string s);
-Grammar read_grammar(std::istream& in);
+Grammar read_grammar(std::istream &in);
 int nrand(int n);
-Tokens generate_sentence(const Grammar& g);
-std::ostream& print(std::ostream& out, const Tokens& ts);
+Tokens generate_sentence(const Grammar &g);
+std::ostream &print(std::ostream &out, const Tokens &ts);
 
 int main() {
   Grammar g = read_grammar(std::cin);
@@ -32,7 +32,7 @@ int main() {
   }
 }
 
-bool is_symbol(const Token& t) {
+bool is_symbol(const Token &t) {
   if (t.empty()) {
     return false;
   }
@@ -40,9 +40,7 @@ bool is_symbol(const Token& t) {
   return t[0] == '<' && t[t.size() - 1] == '>';
 }
 
-bool is_literal(const Token& t) {
-  return !is_symbol(t);
-}
+bool is_literal(const Token &t) { return !is_symbol(t); }
 
 Tokens tokenize(std::string s) {
   Tokens tokens;
@@ -68,7 +66,7 @@ Tokens tokenize(std::string s) {
   return tokens;
 }
 
-Grammar read_grammar(std::istream& in) {
+Grammar read_grammar(std::istream &in) {
   Grammar g;
 
   std::string line;
@@ -96,7 +94,7 @@ int nrand(int n) {
   return r;
 }
 
-Tokens generate_sentence(const Grammar& g) {
+Tokens generate_sentence(const Grammar &g) {
   Tokens sentence, stack;
   stack.push_back("<sentence>");
 
@@ -112,9 +110,10 @@ Tokens generate_sentence(const Grammar& g) {
         throw std::logic_error("unknown token" + t);
       }
 
-      Tokens expansion = grammar_rule->second[nrand(grammar_rule->second.size())];
+      Tokens expansion =
+          grammar_rule->second[nrand(grammar_rule->second.size())];
       for (Tokens::const_reverse_iterator it = expansion.rbegin();
-          it != expansion.rend(); ++it) {
+           it != expansion.rend(); ++it) {
         stack.push_back(*it);
       }
     }
@@ -123,7 +122,7 @@ Tokens generate_sentence(const Grammar& g) {
   return sentence;
 }
 
-std::ostream& print(std::ostream& out, const Tokens& ts) {
+std::ostream &print(std::ostream &out, const Tokens &ts) {
   for (Tokens::const_iterator it = ts.begin(); it != ts.end(); ++it) {
     if (it != ts.begin()) {
       out << " ";

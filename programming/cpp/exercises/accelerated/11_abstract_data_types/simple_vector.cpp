@@ -17,6 +17,7 @@ public:
   SimpleVector() { create(); }
   explicit SimpleVector(size_type n, const T &t = T()) { create(n, t); }
   SimpleVector(const SimpleVector &v) { create(v.begin(), v.end()); }
+  SimpleVector(const_iterator b, const_iterator e) { create(b, e); }
   SimpleVector &operator=(const SimpleVector &other);
   ~SimpleVector() { uncreate(); }
 
@@ -42,6 +43,8 @@ public:
   void clear();
   void erase(const_iterator pos);
   void erase(const_iterator first, const_iterator last);
+
+  void assign(T arr[], size_t n);
 
 private:
   void create();
@@ -145,6 +148,13 @@ void SimpleVector<T>::erase(const_iterator first, const_iterator last) {
   end_ -= (last - first);
 }
 
+template <class T> void SimpleVector<T>::assign(T arr[], size_t n) {
+  clear();
+  for (size_t i = 0; i < n; ++i) {
+    push_back(arr[i]);
+  }
+}
+
 enum class VectorAction {
   Invalid,
   Print,
@@ -194,6 +204,16 @@ int main() {
     case VectorAction::Quit:
       continue_repl = false;
       break;
+    }
+  }
+
+  {
+    int arr[] = {1, 2, 3, 4, 5};
+    SimpleVector<int> v;
+    v.assign(arr, 5);
+    std::cout << "v.size() = " << v.size() << "\n";
+    for (SimpleVector<int>::size_type i = 0; i < v.size(); ++i) {
+      std::cout << "v[" << i << "] = " << v[i] << "\n";
     }
   }
 }

@@ -3,8 +3,7 @@
 
 #include <iostream>
 
-template <class DataType>
-DataType max(const DataType& x, const DataType& y);
+template <class DataType> DataType max(const DataType &x, const DataType &y);
 
 int main() {
   int i1, i2;
@@ -18,7 +17,6 @@ int main() {
   std::cout << "The maximum of the doubles is: " << max(d1, d2) << "\n";
 }
 
-template <class DataType>
-DataType max(const DataType& x, const DataType& y) {
+template <class DataType> DataType max(const DataType &x, const DataType &y) {
   return (y > x) ? y : x;
 }
