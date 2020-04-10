@@ -1,2 +1,5 @@
 gqq - format current line
 gq{motion} - format all lines through motion
+
+Rounding Numbers: Round all numbers of the form #.# to four decimal digits
+:s/\d\+\.\d\+/=printf("%.4f", str2float(submatch(0)))/
