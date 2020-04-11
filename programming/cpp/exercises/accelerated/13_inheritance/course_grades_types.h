@@ -1,3 +1,5 @@
+#ifndef _COURSE_GRADES_TYPES_H
+#define _COURSE_GRADES_TYPES_H
 // course_grades_types.h
 // Compute course grades for different types of students: undergraduates,
 // graduates, students taking the class pass/fail, and students auditing the
@@ -172,3 +174,5 @@ public:
 private:
   CoreStudent *student_;
 };
+
+#endif
