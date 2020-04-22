@@ -1,0 +1,65 @@
+================================================================================
+15-0 Compile, execute, and test the programs in this chapter.
+================================================================================
+See managed_pointer.cpp and managed_picture.cpp.
+
+================================================================================
+15-1 Test your system by writing a program that executes the following.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Picture p = ...; // some initial starting picture
+Picture q = frame(p);
+Picture r = hcat(p, q);
+Picture s = vcat(p, q);
+std::cout << frame(hcat(s, vcat(r, q))) << std::endl;
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+================================================================================
+See managed_picture_test.cpp.
+
+================================================================================
+15-2 Reimplement the Frame_Pic class so that the frame uses three different
+characters: one for the corners, another for the top and bottom borders, and a
+third for the side borders.
+================================================================================
+See the Picture_Framed_Fancy class in managed_picture.cpp. Note that we do not
+need both the Picture_Framed and Picture_Framed_Fancy classes -- we could just
+have the Picture_Framed_Fancy constructor whose only argument is a Picture use
+'*' as the default argument for each of the framed characters. However, I
+wanted to preserve the original code from the chapter, so I introduced a new
+class.
+
+================================================================================
+15-3 Give users the option to specify what characters to use for these border
+characters.
+================================================================================
+See the Picture_Framed_Fancy class in managed_picture.cpp. Note that we do not
+need both the Picture_Framed and Picture_Framed_Fancy classes -- we could just
+have the Picture_Framed_Fancy constructor whose only argument is a Picture use
+'*' as the default argument for each of the framed characters. However, I
+wanted to preserve the original code from the chapter, so I introduced a new
+class.
+
+================================================================================
+15-4 Add an operation to reframe a picture, which changes the frame characters.
+The operation should change all of the frames in the interior picture.
+================================================================================
+See the reframe_fancy functions in managed_picture.cpp.
+
+================================================================================
+15-5 Reimplement HCat_Pic so that when pictures of a different size are
+concatenated, the shorter one is centered in the space consumed by the longer
+one. That is, if we horizontally concatenate two pictures, one of which is four
+lines long and the other is two lines long, the first and last rows of the
+output picture will be blank on the side of the shorter picture. What can we
+now conclude about the necessity of the tests between row and 0?
+================================================================================
+See the Picture_HCat_Centered in managed_picture.cpp.
+
+================================================================================
+15-6 The Vec and Str classes that we developed in Chapters 11 and 12 are
+powerful enough to be used to implement Pictures. Reimplement the material in
+this chapter to use Vec<Str> instead of vector<string>, and test your
+implementation.
+================================================================================
+To get the solution to this problem, replace all occurrences of std::vector
+with Vec and all occurrences of std::string with Str in the original code from
+the chapter.
