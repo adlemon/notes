@@ -2,4 +2,12 @@ gqq - format current line
 gq{motion} - format all lines through motion
 
 Rounding Numbers: Round all numbers of the form #.# to four decimal digits
-:s/\d\+\.\d\+/=printf("%.4f", str2float(submatch(0)))/
+:%s/\d\+\.\d\+/\=printf("%.4f", str2float(submatch(0)))/
+
+Arithmetic:
+Insert value of simple expression:
+in INSERT mode: <CTRL+R>=2 + 2
+
+Replace current with its value:
+in NORMAL mode: !!bc -l
+(see `man bc` for details about syntax and supported operations)
