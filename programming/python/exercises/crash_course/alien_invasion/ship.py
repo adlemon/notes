@@ -5,10 +5,11 @@
 import pygame
 
 
-class Ship:
+class Ship(pygame.sprite.Sprite):
     """Class to represent the player's ship in the alien invasion game."""
     def __init__(self, game):
         """Initialize the player's ship."""
+        super().__init__()
         self.game = game
 
         self.image = pygame.image.load('images/ship.bmp')

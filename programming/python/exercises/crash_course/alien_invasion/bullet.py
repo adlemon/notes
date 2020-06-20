@@ -12,12 +12,11 @@ class Bullet(pygame.sprite.Sprite):
         super().__init__()
         self.game = game
 
-        # Create a bullet at the ship's location.
         self.rect = pygame.Rect(
-            0,
-            0,
-            self.game.settings.bullet_width,
-            self.game.settings.bullet_height,
+            0,  # top
+            0,  # left
+            self.game.settings.bullet_width,  # width
+            self.game.settings.bullet_height,  # height
         )
         self.rect.midbottom = game.ship.rect.midtop
 

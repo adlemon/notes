@@ -9,7 +9,9 @@ import pygame
 
 import alien
 import bullet
+import button
 import game_stats
+import scoreboard
 import settings
 import ship
 
@@ -28,13 +30,16 @@ class AlienInvasion:
         pygame.display.set_caption('Alien Invasion')
 
         self.stats = game_stats.Stats(self)
+        self.scoreboard = scoreboard.Scoreboard(self)
 
         self.ship = ship.Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
-        self._reset_game()
+        self._new_turn()
 
-    def _reset_game(self):
+        self.play_button = button.Button(self, 'Play')
+
+    def _new_turn(self):
         self.ship.reset()
         self.bullets.empty()
         self.aliens.empty()
@@ -71,6 +76,8 @@ class AlienInvasion:
     def _handle_key_down_event(self, event):
         if event.key == pygame.K_q:
             self._quit()
+        elif not self.stats.game_active:
+            return
         elif event.key == pygame.K_LEFT:
             self.ship.left_thruster_on = True
         elif event.key == pygame.K_RIGHT:
@@ -84,10 +91,26 @@ class AlienInvasion:
         elif event.key == pygame.K_RIGHT:
             self.ship.right_thruster_on = False
 
+    def _handle_mouse_click(self, click_coordinates):
+        """Handle mouse-click events."""
+        if self.play_button.rect.collidepoint(click_coordinates):
+            if self.stats.game_active:
+                return
+            self.settings.reset_level_settings()
+            self.stats.reset()
+            self.stats.game_active = True
+            self.scoreboard.render_score()
+            self.scoreboard.render_level()
+            self.scoreboard.render_ships()
+            self.scoreboard.render_high_score()
+            pygame.mouse.set_visible(False)
+
     def _handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                self._handle_mouse_click(pygame.mouse.get_pos())
             elif event.type == pygame.KEYDOWN:
                 self._handle_key_down_event(event)
             elif event.type == pygame.KEYUP:
@@ -102,10 +125,17 @@ class AlienInvasion:
 
     def _process_bullet_hits(self):
         """Remove any bullets and aliens that are colliding."""
-        pygame.sprite.groupcollide(groupa=self.bullets,
-                                   dokilla=True,
-                                   groupb=self.aliens,
-                                   dokillb=True)
+        collisions = pygame.sprite.groupcollide(groupa=self.bullets,
+                                                dokilla=True,
+                                                groupb=self.aliens,
+                                                dokillb=True)
+        if collisions:
+            aliens_hit = set()
+            for aliens_hit_by_bullet in collisions.values():
+                aliens_hit.update(aliens_hit_by_bullet)
+            self.stats.score += len(
+                aliens_hit) * self.settings.points_per_alien
+            self.scoreboard.render_score()
 
     def _is_ship_colliding_with_alien(self):
         """Check whether the ship is colliding with an alien."""
@@ -142,28 +172,42 @@ class AlienInvasion:
         for b in self.bullets.sprites():
             b.draw()
         self.aliens.draw(self.display)
+        self.scoreboard.draw()
 
-        # Update the display.
+        # Draw the "Play" button last so that it appears above all other game
+        # elements if the game is not active.
+        if not self.stats.game_active:
+            self.play_button.draw()
+
         pygame.display.flip()
 
     def _process_lost_turn(self):
         """Reset the game after a lost turn."""
-        self.stats.num_lives_left -= 1
-        self._reset_game()
+        self.stats.lose_turn()
+        self.scoreboard.render_ships()
+        if self.stats.num_lives_left > 0:
+            self._new_turn()
+        else:
+            pygame.mouse.set_visible(True)
+
+    def _increase_level(self):
+        self.settings.increase_level()
+        self.stats.level += 1
+        self.scoreboard.render_level()
+        self._new_turn()
 
     def run(self):
         """Run the Alien Invasion game."""
         while True:
             self._handle_events()
 
-            if self.stats.num_lives_left > 0:
+            if self.stats.game_active:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
                 self._process_bullet_hits()
                 if not self.aliens:
-                    self.bullets.empty()
-                    self._create_aliens()
+                    self._increase_level()
                 if (self._is_ship_colliding_with_alien()
                         or self._is_alien_at_bottom()):
                     self._process_lost_turn()
