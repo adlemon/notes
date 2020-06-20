@@ -12,7 +12,7 @@ class AlienInvasionBullet(pygame.sprite.Sprite):
         super().__init__()
         self.alien_invasion_game = alien_invasion_game
 
-        # Create a bullet the ship's location.
+        # Create a bullet at the ship's location.
         self.rect = pygame.Rect(
             0,
             0,

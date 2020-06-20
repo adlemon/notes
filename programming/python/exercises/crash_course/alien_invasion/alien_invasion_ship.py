@@ -14,7 +14,12 @@ class AlienInvasionShip:
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
         self.width = self.rect.width
+        self.height = self.rect.height
 
+        self.reset()
+
+    def reset(self):
+        """Reset the ship."""
         self.rect.midbottom = self.alien_invasion_game.display.get_rect(
         ).midbottom
         self.x = float(self.rect.x)
