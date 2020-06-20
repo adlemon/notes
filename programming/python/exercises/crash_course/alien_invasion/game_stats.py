@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-# game_statistics.py
+# game_stats.py
 # Class to keep track of statistics for the alien invasion game.
 
 
-class GameStatistics:
+class Stats:
     def __init__(self, game):
         """Initialize the game statistics."""
         self.game = game

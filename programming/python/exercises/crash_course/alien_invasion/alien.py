@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-# alien_invasion_alien.py
+# alien.py
 # Class to represent an alien in the alien invasion game.
 
 import pygame
 
 
-class AlienInvasionAlien(pygame.sprite.Sprite):
+class Alien(pygame.sprite.Sprite):
     """Class to represent an alien in the alien invasion game."""
     def __init__(self, game):
         """Initialize an alien."""

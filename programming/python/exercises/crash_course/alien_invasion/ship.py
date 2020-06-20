@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 # alien_invasion_ship.py
-# Class to represent the player's ship in the Alien Invasion game.
+# Class to represent the player's ship in the alien invasion game.
 
 import pygame
 
 
-class AlienInvasionShip:
-    """Class to represent the player's ship in the Alien Invasion game."""
-    def __init__(self, alien_invasion_game):
+class Ship:
+    """Class to represent the player's ship in the alien invasion game."""
+    def __init__(self, game):
         """Initialize the player's ship."""
-        self.alien_invasion_game = alien_invasion_game
+        self.game = game
 
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
@@ -20,8 +20,7 @@ class AlienInvasionShip:
 
     def reset(self):
         """Reset the ship."""
-        self.rect.midbottom = self.alien_invasion_game.display.get_rect(
-        ).midbottom
+        self.rect.midbottom = self.game.display.get_rect().midbottom
         self.x = float(self.rect.x)
 
         self.left_thruster_on = self.right_thruster_on = False
@@ -36,7 +35,7 @@ class AlienInvasionShip:
 
     def _update_velocity(self):
         self.velocity = ((self.right_thruster_on - self.left_thruster_on) *
-                         self.alien_invasion_game.settings.ship_speed)
+                         self.game.settings.ship_speed)
 
     def update(self):
         """Update the position of the ship."""
@@ -44,10 +43,10 @@ class AlienInvasionShip:
         self.x = self._bound_to_range(
             self.x + self.velocity,
             0,
-            self.alien_invasion_game.display.get_rect().right - self.width,
+            self.game.display.get_rect().right - self.width,
         )
         self.rect.x = int(self.x)
 
     def draw(self):
         """Draw the player's ship."""
-        self.alien_invasion_game.display.blit(self.image, self.rect)
+        self.game.display.blit(self.image, self.rect)

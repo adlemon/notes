@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-# alien_invasion_settings.py
-# Defines a class containing all the adjustable settings for the Alien Invasion
-# game.
+# settings.py
+# Class for settings for an alien invasion game.
 
 
-class AlienInvasionSettings:
-    """A class to store all the configurable settings for the Alien Invasion game."""
+class Settings:
+    """A class to store the settings for the alien invasion game."""
     def __init__(self):
         """Initializes settings with default values."""
         # Display settings.
