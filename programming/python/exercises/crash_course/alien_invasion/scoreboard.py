@@ -3,7 +3,7 @@
 # Class to manage the scoreboard for the alien invasion game.
 
 import pygame
-import ship
+from ship import Ship
 
 
 class Scoreboard:
@@ -53,10 +53,10 @@ class Scoreboard:
         """Render images to show the number of remaining ships."""
         self.ships = pygame.sprite.Group()
         for i in range(self.game.stats.num_lives_left):
-            s = ship.Ship(self.game)
-            s.rect.x = 10 + i * s.rect.width
-            s.rect.y = 10
-            self.ships.add(s)
+            ship = Ship(self.game)
+            ship.rect.x = 10 + i * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)
 
     def render_high_score(self):
         """Render an image to display the high score."""

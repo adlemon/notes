@@ -29,8 +29,8 @@ class Settings:
 
         # Level settings.
         self.reset_level_settings()
-        self.level_speed_increase_factor = 5.0
-        self.level_score_increase_factor = 1.5
+        self.level_speed_increase_factor = 1.5
+        self.level_score_increase_factor = 1.1
 
     def reset_level_settings(self):
         """Reset settings that vary by level to their initial values."""
