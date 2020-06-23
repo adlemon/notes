@@ -1,10 +1,11 @@
 # Ignore everything.
 *
 
-# Un-ignore .h, .cpp, .txt, Makefile, and gitignore files.
+# Un-ignore .h, .cpp, .txt, jpg, Makefile, and gitignore files.
 !*/
 !*.h
 !*.cpp
 !*.txt
+!*.jpg
 !Makefile
 !.gitignore
