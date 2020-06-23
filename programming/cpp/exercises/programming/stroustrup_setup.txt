@@ -1,0 +1,103 @@
+(1) Install FLTK.
+sudo apt-get install libfltk1.3-dev
+
+(2) Uncomment the following line in stroustrup/Graph.h.
+#include "std_lib_facilities.h"
+
+(3) Uncomment the following lines in stroustrup/Point.h.
+Point(int xx, int yy) : x(xx), y(yy) {}
+Point() : x(0), y(0) {}
+
+(4) Change the following line in stroustrup/Graph.cpp.
+return ff;
+The line should be changed to the following.
+return static_cast<bool>(ff);
+
+(5) Comment out (or delete) the following lines in stroustrup/GUI.cpp.
+// Menu::Menu(Point xy, int w, int h, Kind kk, const string &s)
+//: Widget(xy, w, h, s, 0), k(kk), offset(0) {}
+
+(6) Change the following line in Simple_window.h.
+struct Simple_window : Window {
+The line should be changed to the following.
+struct Simple_window : Graph_lib::Window {
+
+(7) Comment out (or delete) the following lines in stroustrup/Simple_window.cpp.
+Simple_window::Simple_window(Point xy, int w, int h, const string &title)
+    : Window(xy, w, h, title),
+
+(8) Convert the following function definition into a declaration in
+stroustrup/Simple_window.h, and fix the return type.
+  void wait_for_button()
+  // modified event loop
+  // handle all events (as per default), but quit when button_pushed becomes
+  // true
+  // this allows graphics without control inversion
+  {
+    while (!button_pushed)
+      Fl::wait();
+    button_pushed = false;
+    Fl::redraw();
+  }
+The line should be changed to the following (we add a semicolon to the first
+line, and comment out [or delete] the rest of the lines).
+  bool wait_for_button();
+  // modified event loop
+  // handle all events (as per default), but quit when button_pushed becomes
+  // true
+  // this allows graphics without control inversion
+  //{
+  // while (!button_pushed)
+  // Fl::wait();
+  // button_pushed = false;
+  // Fl::redraw();
+  //}
+
+(9) Convert the following function definition into a function declaration in
+stroustrup/Simple_window.h.
+void next() { button_pushed = true; }
+The line should be changed to the following.
+void next();
+
+(10) Remove `i < 0 ||` from the following line in std_lib_facilities.h. (Note
+that there are two such lines.)
+if (i < 0 || size() <= i)
+
+(11) Reverse the order of the following two lines in Graph.h.
+unsigned char v; // 0 or 1 for now
+Fl_Color c;
+
+(12) Add a static_cast{Color}(...) in the following line in Graph.h.
+Color lcolor{fl_color()};
+The modified line shuld as follows.
+Color lcolor{static_cast<Color>(fl_color())};
+
+(13) Add the following line to Graph.cpp.
+(void)x;
+This line should be added after the following line.
+static int x = init_suffix_map();
+
+(14) Change the order of the variable initializations in the following lines in
+Simple_window.h.
+  Simple_window(Point xy, int w, int h, const string &title)
+      : Window(xy, w, h, title), button_pushed(false)
+        next_button(Point(x_max() - 70, 0), 70, 20, "Next", cb_next) {
+The modified lines should be the following.
+  Simple_window(Point xy, int w, int h, const string &title)
+      : Window(xy, w, h, title),
+        next_button(Point(x_max() - 70, 0), 70, 20, "Next", cb_next),
+        button_pushed(false) {
+
+(15) Reverse the order of the following two lines in Graph.h.
+int h; // height
+int w; // width
+
+(16) Convert unsigned int to int in the following line in GUI.h. (Note that
+there are three such lines that must be changed.)
+for (unsigned int i = 0; i < selection.size(); ++i)
+
+(17) Convert int to size_t in the following line in Window.cpp.
+for (int i = 0; i < shapes.size(); ++i) {
+
+(18) Convert int to size_t in the following line in Graph.h.
+for (int i = 0; i < owned.size(); ++i)

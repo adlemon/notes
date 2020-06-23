@@ -1,0 +1,3 @@
+The  quick brown fox jumps over the lazy dog.
+The quick,  quick fox jumps over the lazy, lazy dog!
+The dog jumps over the fox?

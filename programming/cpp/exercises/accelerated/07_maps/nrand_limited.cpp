@@ -10,7 +10,7 @@
 #include <vector>
 
 const int n0 = 7;
-int sub_random(int n, int n0, int generate_random() = rand);
+int rand_helper(int n, int n0, int generate_random() = rand);
 int n0rand();
 int nrand(int n);
 
@@ -50,11 +50,11 @@ int rand_helper(int n, int n0, int generate_random()) {
   return r;
 }
 
-int n0rand() { return sub_random(n0, RAND_MAX); }
+int n0rand() { return rand_helper(n0, RAND_MAX); }
 
 int nrand(int n) {
   if (n <= n0) {
-    return sub_random(n, n0, n0rand);
+    return rand_helper(n, n0, n0rand);
   }
 
   // Suppose the integer num_buckets satisfies num_buckets * n0 >= n. Then we
