@@ -133,7 +133,8 @@ public:
   int size() const { return v.size(); }
 };
 
-typedef double Fct(double);
+// typedef double Fct(double);
+using Fct = std::function<double(double)>;
 
 class Shape { // deals with color and style, and holds sequence of lines
 protected:
