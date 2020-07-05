@@ -16,7 +16,7 @@ django-admin startproject learning_log .
 # Create a SQLite database to store the application's data.
 python manage.py migrate
 
-# View the project in its current state.
+# Start the web server.
 python manage.py runserver
 
 # Create an app for the `learning_logs` project.
@@ -33,3 +33,6 @@ python manage.py createsuperuser
 
 # Start the Django shell (for testing, troubleshooting, etc.).
 python manage.py shell
+
+# Create an app to manage users.
+python manage.py startapp users
