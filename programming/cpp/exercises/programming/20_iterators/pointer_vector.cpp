@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-template <class T> class PointerVector {
+template <typename T> class PointerVector {
 public:
   ~PointerVector() {
     for (auto p : v_) {
@@ -23,7 +23,7 @@ private:
   std::vector<T *> v_;
 };
 
-template <class T>
+template <typename T>
 std::ostream &operator<<(std::ostream &os, const PointerVector<T> &pv) {
   bool is_first = true;
 

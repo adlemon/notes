@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-template <class T> class C {
+template <typename T> class C {
 public:
   C(T x) : x_(x) {}
   T x() { return x_; }

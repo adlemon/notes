@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-template <class T> class SimpleVector {
+template <typename T> class SimpleVector {
 public:
   SimpleVector() : size_(0), capacity_(0), data_(nullptr) {}
   SimpleVector(const SimpleVector &other)

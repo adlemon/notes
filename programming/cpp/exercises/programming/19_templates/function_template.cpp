@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-template <class T> T multiply_2(T x) { return 2 * x; }
+template <typename T> T multiply_2(T x) { return 2 * x; }
 
 int main() {
   std::cout << "multiply_2(2) = " << multiply_2(2) << "\n"

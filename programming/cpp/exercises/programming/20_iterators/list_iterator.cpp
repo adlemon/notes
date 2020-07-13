@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-template <class T> class SimpleList {
+template <typename T> class SimpleList {
 public:
   SimpleList();
   ~SimpleList();
@@ -30,7 +30,7 @@ private:
   Node *tail_;
 };
 
-template <class T> class SimpleList<T>::Iterator {
+template <typename T> class SimpleList<T>::Iterator {
 public:
   Iterator(SimpleList<T>::Node *node) : node_(node) {}
 
@@ -53,7 +53,7 @@ private:
   SimpleList<T>::Node *node_;
 };
 
-template <class T> struct SimpleList<T>::Node {
+template <typename T> struct SimpleList<T>::Node {
   Node() {}
   ~Node() { delete value; }
   T *value = nullptr;
@@ -61,13 +61,13 @@ template <class T> struct SimpleList<T>::Node {
   Node *next = nullptr;
 };
 
-template <class T>
+template <typename T>
 SimpleList<T>::SimpleList() : head_(new Node{}), tail_(new Node{}) {
   head_->next = tail_;
   tail_->prev = head_;
 }
 
-template <class T> SimpleList<T>::~SimpleList() {
+template <typename T> SimpleList<T>::~SimpleList() {
   Node *cursor = head_;
   while (cursor) {
     Node *next_cursor = cursor->next;
@@ -76,15 +76,15 @@ template <class T> SimpleList<T>::~SimpleList() {
   }
 }
 
-template <class T> typename SimpleList<T>::Iterator SimpleList<T>::begin() {
+template <typename T> typename SimpleList<T>::Iterator SimpleList<T>::begin() {
   return head_->next;
 }
 
-template <class T> typename SimpleList<T>::Iterator SimpleList<T>::end() {
+template <typename T> typename SimpleList<T>::Iterator SimpleList<T>::end() {
   return tail_;
 }
 
-template <class T>
+template <typename T>
 typename SimpleList<T>::Iterator SimpleList<T>::insert(Iterator i, const T &v) {
   Node *node = new Node{};
   node->value = new T{v};
@@ -95,7 +95,7 @@ typename SimpleList<T>::Iterator SimpleList<T>::insert(Iterator i, const T &v) {
   return Iterator{node};
 }
 
-template <class T>
+template <typename T>
 typename SimpleList<T>::Iterator SimpleList<T>::erase(Iterator i) {
   Iterator to_return = Iterator{i.node_->prev};
   i.node_->prev->next = i.node_->next;
@@ -104,23 +104,23 @@ typename SimpleList<T>::Iterator SimpleList<T>::erase(Iterator i) {
   return to_return;
 }
 
-template <class T> void SimpleList<T>::push_back(const T &v) {
+template <typename T> void SimpleList<T>::push_back(const T &v) {
   insert(tail_->prev, v);
 }
 
-template <class T> void SimpleList<T>::push_front(const T &v) {
+template <typename T> void SimpleList<T>::push_front(const T &v) {
   insert(head_, v);
 }
 
-template <class T> void SimpleList<T>::pop_front() { erase(head_->next); }
+template <typename T> void SimpleList<T>::pop_front() { erase(head_->next); }
 
-template <class T> void SimpleList<T>::pop_back() { erase(tail_->prev); }
+template <typename T> void SimpleList<T>::pop_back() { erase(tail_->prev); }
 
-template <class T> T &SimpleList<T>::front() { return head_->next->value; }
+template <typename T> T &SimpleList<T>::front() { return head_->next->value; }
 
-template <class T> T &SimpleList<T>::back() { return tail_->prev->value; }
+template <typename T> T &SimpleList<T>::back() { return tail_->prev->value; }
 
-template <class T>
+template <typename T>
 std::ostream &operator<<(std::ostream &os, SimpleList<T> &lst) {
   bool is_first = true;
   for (typename SimpleList<T>::Iterator it = lst.begin(); it != lst.end();

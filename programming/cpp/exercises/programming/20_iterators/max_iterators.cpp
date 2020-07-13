@@ -5,7 +5,7 @@
 #include <list>
 #include <vector>
 
-template <class It> It max_iterator(It begin, It end) {
+template <typename It> It max_iterator(It begin, It end) {
   It max_it = begin;
   for (It cursor = begin; cursor != end; ++cursor) {
     if (*cursor > *max_it) {

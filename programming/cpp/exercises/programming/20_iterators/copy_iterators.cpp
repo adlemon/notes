@@ -5,7 +5,7 @@
 #include <list>
 #include <vector>
 
-template <class In, class Out>
+template <typename In, typename Out>
 void copy_iterators(In in_begin, In in_end, Out out_begin) {
   Out out_cursor = out_begin;
   for (In in_cursor = in_begin; in_cursor != in_end;
@@ -14,7 +14,7 @@ void copy_iterators(In in_begin, In in_end, Out out_begin) {
   }
 }
 
-template <class T>
+template <typename T>
 std::ostream &operator<<(std::ostream &os, std::vector<T> v) {
   os << "{";
   for (typename std::vector<T>::size_type i = 0; i < v.size(); ++i) {
